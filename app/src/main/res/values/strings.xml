@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">奥兰信息系统登录(学生客户端)</string>
+    <string name="title_activity_main_user">奥兰信息系统学生客户端</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="HolidaysInfo"></string>
+</resources>

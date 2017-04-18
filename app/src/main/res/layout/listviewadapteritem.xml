@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mItemIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5sp"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mItem_HolidayBecause"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="请假具体原因(Loading...)"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/mItem_HolidayTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="请假时间:(Loading...)"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/mItem_WhereOutSide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="外出地址:(Loading...)"
+
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/mItemAcceptState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="通过" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
