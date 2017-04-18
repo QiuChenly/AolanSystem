@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -659,7 +658,7 @@ public class AoLan {
 
         RequestParams params = new RequestParams();
         params.put("file", bytes);
-        client.post(url, params, new BinaryHttpResponseHandler() {
+        client.post(url, params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
