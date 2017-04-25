@@ -15,6 +15,9 @@
             android:id="@+id/PleaseChoiceInfo_holidays_long"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
             android:layout_marginTop="5sp"
             android:gravity="center"
             android:text="请从下方选择:">
@@ -54,10 +57,10 @@
                 android:id="@+id/long_ClassMatesContactInfomation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="2"
                 android:gravity="center"
-                android:visibility="gone"
-                android:text="a"/>
+                android:lines="2"
+                android:text="a"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

@@ -440,10 +440,10 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                         public void run() {
                                             super.run();
                                             try {
-                                                //优化性能,加载过一次就不需要再次加载数据
-                                                if (LoginInfo.mUserData.CategoryHolidays.isEmpty() == true) {
-                                                    LoginInfo.aolanEx.Init_Holidays_xzdm();
-                                                }
+//                                                //优化性能,加载过一次就不需要再次加载数据
+//                                                if (LoginInfo.mUserData.CategoryHolidays.isEmpty() == true) {
+                                                LoginInfo.aolanEx.Init_Holidays_xzdm();
+//                                                }
                                                 while (LoginInfo.ErrCode == 0) {
                                                     try {
                                                         Thread.sleep(100);
@@ -747,12 +747,10 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                 if (LoginInfo.IsRequestViews) {
                     SwitchViews.sendMessage(SwitchView(2));
                     LoginInfo.IsRequestViews = false;
-                } else if (LoginInfo.IsLongRequestViews)
-                {
+                } else if (LoginInfo.IsLongRequestViews) {
                     SwitchViews.sendMessage(SwitchView(3));
                     LoginInfo.IsLongRequestViews = false;
-                }
-                else {
+                } else {
                     long secondT = System.currentTimeMillis();
                     if (secondT - BackTime > 2000) {
                         Toast.makeText(this, "再次点击返回键退出", Toast.LENGTH_SHORT).show();

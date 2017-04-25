@@ -117,36 +117,30 @@ public class AolanOkHttpEx {
         OkGo.post("http://alst.jsahvc.edu.cn/login.aspx")     // 请求方式和请求url
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
-                .params("__VIEWSTATE", "")
-                .params("__VIEWSTATEGENERATOR", "")
-                .params("userbh", userid)
-                .params("pass", md5(PassWord))
-                .params("vcode", "")
-                .params("xzbz", "1")
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(String s, Call call, Response response) {
-                        // s 即为所需要的结果
-                        UpdataViewState(s);//更新参数
-                        //是否为班干部
-                        if (s.indexOf("班干部") != -1) {
-                            LoginInfo.mUserData.ClassLeader = true;
-                        } else {
-                            LoginInfo.mUserData.ClassLeader = false;
-                        }
-                        int val = s.indexOf("><b>欢迎你:");
-                        String Temps = "";
-                        if (val != -1) {
-                            Temps = GetSubText(s, "><b>欢迎你:", "\n", 0).trim();
-                            LoginInfo.mUserData.Name = Temps;
-                            LoginInfo.ErrCode = 1;
-                        } else {
-                            Temps = s;
-                            LoginInfo.ErrCode = -1;
-                        }
-                        LoginInfo.Result = Temps;
-                    }
-                });
+                .params("__VIEWSTATE", "").params("__VIEWSTATEGENERATOR", "").params("userbh", userid).params("pass", md5(PassWord)).params("vcode", "").params("xzbz", "1").execute(new StringCallback() {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                // s 即为所需要的结果
+                UpdataViewState(s);//更新参数
+                //是否为班干部
+                if (s.indexOf("班干部") != -1) {
+                    LoginInfo.mUserData.ClassLeader = true;
+                } else {
+                    LoginInfo.mUserData.ClassLeader = false;
+                }
+                int val = s.indexOf("><b>欢迎你:");
+                String Temps = "";
+                if (val != -1) {
+                    Temps = GetSubText(s, "><b>欢迎你:", "\n", 0).trim();
+                    LoginInfo.mUserData.Name = Temps;
+                    LoginInfo.ErrCode = 1;
+                } else {
+                    Temps = s;
+                    LoginInfo.ErrCode = -1;
+                }
+                LoginInfo.Result = Temps;
+            }
+        });
         return LoginInfo.ErrCode;
     }
 
@@ -234,8 +228,7 @@ public class AolanOkHttpEx {
      */
     public void getClassMatesInfo() {
         LoginInfo.ErrCode = 0;
-        String url = "http://alst.jsahvc.edu.cn/txxm/rsbulid/r_3_3_st_xsqj.aspx?xq="
-                + LoginInfo.mUserData.Term + "&nd=" + LoginInfo.mUserData.nd + "&msie=1";
+        String url = "http://alst.jsahvc.edu.cn/txxm/rsbulid/r_3_3_st_xsqj.aspx?xq=" + LoginInfo.mUserData.Term + "&nd=" + LoginInfo.mUserData.nd + "&msie=1";
 
         OkGo.get(url)     // 请求方式和请求url
                 //.tag(this)                       // 请求的 tag, 主要用于取消对应的请求
@@ -288,318 +281,62 @@ public class AolanOkHttpEx {
     public void getStudentHolidaysInfo(String StudentID, String StudentName) throws IOException {
         String url;
         url = "http://alst.jsahvc.edu.cn/txxm/rsbulid/r_3_3_st_xsqj.aspx?xq=2016-2017-2&nd=2015&msie=1";
-        String datas = "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"__EVENTTARGET\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"__EVENTARGUMENT\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"__VIEWSTATE\"\n" +
-                "\n" +
-                "{__VIEWSTATE}\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"__VIEWSTATEGENERATOR\"\n" +
-                "\n" +
-                "{__VIEWSTATEGENERATOR}\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"__VIEWSTATEENCRYPTED\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"sele1\"\n" +
-                "\n" +
-                StudentID + "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qjsj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qjsy\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qjsydm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qjjtyy\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"File1\"; filename=\"\"\n" +
-                "Content-Type: application/octet-stream\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"fjm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"wcdz\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"jzxmlxfs\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"nhxsj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qjts\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xjrq\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"czsj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"fdyspyj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"fdyspyjdm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"yxspyj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"yxspyjdm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xjspyj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xjspyjdm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"km\"\n" +
-                "\n" +
-                "st_xsqj\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"y_km\"\n" +
-                "\n" +
-                "st_xsqj\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pzd\"\n" +
-                "\n" +
-                "qjsj,qjsydm,qjjtyy,fjm,wcdz,jzxmlxfs,nhxsj,qjts,xjrq,czsj,fdyspyjdm,fdy,fdyspsj,yxspyjdm,yxspr,yxspsj,xjspyjdm,xjspr,xjspsj,sqpzck\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pzd_c\"\n" +
-                "\n" +
-                "sqpzck,\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pzd_lock\"\n" +
-                "\n" +
-                "xjrq,sqpzck,fdyspyjdm,fdy,fdyspsj,yxspyjdm,yxspr,yxspsj,xjspyjdm,xjspr,xjspsj,\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pzd_lock2\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pzd_lock3\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pzd_lock4\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pzd_y\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xdm\"\n" +
-                "\n" +
-                LoginInfo.mUserData.xdm + "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"bjhm\"\n" +
-                "\n" +
-                LoginInfo.mUserData.ClassName + "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xh\"\n" +
-                "\n" +
-                StudentID + "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xm\"\n" +
-                "\n" +
-                StudentName + "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qx_i\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qx_u\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qx_d\"\n" +
-                "\n" +
-                "0\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qx2_r\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qx2_i\"\n" +
-                "\n" +
-                "0\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qx2_u\"\n" +
-                "\n" +
-                "0\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"qx2_d\"\n" +
-                "\n" +
-                "0\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"databcxs\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"databcdel\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xzbz\"\n" +
-                "\n" +
-                "t\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pkey\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pkey4\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xs_bj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"bdbz\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"cw\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"hjzd\"\n" +
-                "\n" +
-                ",NHXSJ,QJSJ,QJTS,\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"st_xq\"\n" +
-                "\n" +
-                LoginInfo.mUserData.Term + "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"st_nd\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"mc\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"smbz\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"fjmf\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"psrc\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pa\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pb\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pc\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pd\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pe\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"pf\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"msie\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"txxmxs\"\n" +
-                "\n" +
-                StudentID + " " + StudentName + "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"tkey\"\n" +
-                "\n" +
-                "qjsj\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"tkey4\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xp_pmc\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xp_pval\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xp_plx\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xp_pkm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xp_pzd\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xp_pjxjdm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xp_ipbz\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
-                "Content-Disposition: form-data; name=\"xp_pjxjdm2\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f--";
-        datas = datas.replace("{__VIEWSTATE}", _viewstate)
-                .replace("{__VIEWSTATEGENERATOR}", _viewStategenerator);
+        String datas = "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"__EVENTTARGET\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"__EVENTARGUMENT\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"__VIEWSTATE\"\n"
+                + "\n" + "{__VIEWSTATE}\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"__VIEWSTATEGENERATOR\"\n" + "\n" + "{__VIEWSTATEGENERATOR}\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"__VIEWSTATEENCRYPTED\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"sele1\"\n" + "\n" + StudentID + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"qjsj\"\n" +
+                "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"qjsy\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"qjsydm\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"qjjtyy\"\n" + "\n" + "\n"
+                + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"File1\"; filename=\"\"\n" + "Content-Type: application/octet-stream\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"fjm\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: " +
+                "form-data; name=\"wcdz\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"jzxmlxfs\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"nhxsj\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"qjts\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xjrq\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"czsj\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition:" +
+                " form-data; name=\"fdyspyj\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"fdyspyjdm\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"yxspyj\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"yxspyjdm\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xjspyj\"\n" + "\n" +
+                "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xjspyjdm\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"km\"\n" + "\n" + "st_xsqj\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"y_km\"\n" + "\n" +
+                "st_xsqj\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pzd\"\n" + "\n" + "qjsj,qjsydm,qjjtyy,fjm,wcdz,jzxmlxfs,nhxsj,qjts,xjrq,czsj," +
+                "fdyspyjdm,fdy,fdyspsj,yxspyjdm,yxspr,yxspsj,xjspyjdm,xjspr,xjspsj,sqpzck\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pzd_c\"\n" +
+                "\n" + "sqpzck,\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pzd_lock\"\n" + "\n" + "xjrq,sqpzck,fdyspyjdm,fdy,fdyspsj,yxspyjdm,yxspr," +
+                "yxspsj,xjspyjdm,xjspr,xjspsj,\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pzd_lock2\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pzd_lock3\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"pzd_lock4\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pzd_y\"\n" + "\n" +
+                "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xdm\"\n" + "\n" + LoginInfo.mUserData.xdm + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"bjhm\"\n" + "\n" + LoginInfo.mUserData.ClassName + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xh\"\n" + "\n" + StudentID + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"xm\"\n" + "\n" + StudentName + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"qx_i\"\n" + "\n"
+                + "1\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"qx_u\"\n" + "\n" + "1\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"qx_d\"\n" + "\n" + "0\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"qx2_r\"\n" + "\n" + "1\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"qx2_i\"\n" + "\n" + "0\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"qx2_u\"\n" + "\n" + "0\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"qx2_d\"\n" + "\n" + "0\n"
+                + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"databcxs\"\n" + "\n" + "1\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"databcdel\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xzbz\"\n" + "\n" +
+                "t\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pkey\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"pkey4\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xs_bj\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"bdbz\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition:" +
+                " form-data; name=\"cw\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"hjzd\"\n" + "\n" + ",NHXSJ,QJSJ,QJTS,\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"st_xq\"\n" + "\n" + LoginInfo.mUserData.Term + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"st_nd\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"mc\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"smbz\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"fjmf\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition:" +
+                " form-data; name=\"psrc\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pa\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pb\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: " +
+                "form-data; name=\"pc\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pd\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"pe\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: " +
+                "form-data; name=\"pf\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"msie\"\n" + "\n" + "1\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"txxmxs\"\n" + "\n" + StudentID + " " + StudentName + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"tkey\"\n" + "\n" + "qjsj\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"tkey4\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xp_pmc\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xp_pval\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"xp_plx\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xp_pkm\"\n" + "\n" + "\n"
+                + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xp_pzd\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" +
+                "Content-Disposition: form-data; name=\"xp_pjxjdm\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xp_ipbz\"\n" + "\n" +
+                "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f\n" + "Content-Disposition: form-data; name=\"xp_pjxjdm2\"\n" + "\n" + "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f--";
+        datas = datas.replace("{__VIEWSTATE}", _viewstate).replace("{__VIEWSTATEGENERATOR}", _viewStategenerator);
         String Cookie = getCookies();
         String r = HttpUntils.submitPostData(new URL(url), datas, Cookie, "multipart/form-data; boundary=----WebKitFormBoundarymAMsOSk5Z6IB3N2f");
         UpdataViewState(r);
@@ -629,7 +366,11 @@ public class AolanOkHttpEx {
      */
     public List<Map<String, Object>> UpdataHolidaysEume(String string) {
         List<Map<String, Object>> mList1 = new ArrayList<Map<String, Object>>();
-        Pattern p = Pattern.compile("</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>");
+        Pattern p = Pattern.compile("</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td " +
+                "nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)" +
+                "[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td " +
+                "nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)" +
+                "[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>");
         Matcher m = p.matcher(string);
         int i = 0;//重设计数器
         while (m.find()) {
@@ -639,8 +380,7 @@ public class AolanOkHttpEx {
                 Temp = "通过";
             }
             Log.d("QiuChen", "QiuChen:" + m.group(1).trim());
-            mList1.add(HashMapEx(String.valueOf(i + 1), CheckNull(m.group(2).trim()), "类型:" + m.group(1).trim() + " 请假时间:" + CheckNull(
-                    m.group(5)), "外出地址:" + CheckNull(m.group(3)), Temp));
+            mList1.add(HashMapEx(String.valueOf(i + 1), CheckNull(m.group(2).trim()), "类型:" + m.group(1).trim() + " 请假时间:" + CheckNull(m.group(5)), "外出地址:" + CheckNull(m.group(3)), Temp));
             i++;
         }
         return listUnder(mList1);
@@ -682,12 +422,7 @@ public class AolanOkHttpEx {
      * @param mItemAcceptState     是否同意
      * @return 封装好的Map数据
      */
-    private Map<String, Object> HashMapEx(
-            String Index,
-            String mItem_HolidayBecause,
-            String mItem_HolidayTime,
-            String mItem_WhereOutSide,
-            String mItemAcceptState) {
+    private Map<String, Object> HashMapEx(String Index, String mItem_HolidayBecause, String mItem_HolidayTime, String mItem_WhereOutSide, String mItemAcceptState) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("mItemIndex", Index);
         map.put("mItem_HolidayBecause", mItem_HolidayBecause);
@@ -703,6 +438,7 @@ public class AolanOkHttpEx {
      * @throws IOException
      */
     public void Init_Holidays_xzdm() throws IOException {
+        LoginInfo.mUserData.CategoryHolidays = new ArrayList<>();
         LoginInfo.ErrCode = 0;
         String url = "http://alst.jsahvc.edu.cn/xzdm.aspx";
 //        String data = "__EVENTTARGET=" +
@@ -711,26 +447,19 @@ public class AolanOkHttpEx {
 //                "&__VIEWSTATE=" + _viewstate +
 //                "&__VIEWSTATEGENERATOR=" + _viewStategenerator +
 //                "&mh=&tj=&pdm=&pmc=qjsy&pdm2=&pmc2=&pjxjdm=&pjxjdm2=&pval=&plx=&pkm=QJSYDM&pzd=qjjtyy&xzbz=0&ipbz=1&cwbz=&xz1v=";
-        OkGo.post(url)
-                .params("__VIEWSTATE", _viewstate)
-                .params("__VIEWSTATEGENERATOR", _viewStategenerator)
-                .params("pmc", "qjsy")
-                .params("pkm", "QJSYDM")
-                .params("pzd", "qjjtyy")
-                .params("xzbz", "0")
-                .params("ipbz", "1")
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(String s, Call call, Response response) {
-                        Pattern p = Pattern.compile("<span id=\".*?\">(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span id=\".*?\">(.*?)[\\s]*</span>");
-                        Matcher m = p.matcher(s);
-                        while (m.find()) {
-                            String Line = m.group(1) + "|" + m.group(2);
-                            LoginInfo.mUserData.CategoryHolidays.add(Line);
-                            LoginInfo.ErrCode = 1;
-                        }
-                    }
-                });
+        OkGo.post(url).params("__VIEWSTATE", _viewstate).params("__VIEWSTATEGENERATOR", _viewStategenerator).params("pmc", "qjsy").params("pkm", "QJSYDM").params("pzd", "qjjtyy").params("xzbz",
+                "0").params("ipbz", "1").execute(new StringCallback() {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                Pattern p = Pattern.compile("<span id=\".*?\">(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span id=\".*?\">(.*?)[\\s]*</span>");
+                Matcher m = p.matcher(s);
+                while (m.find()) {
+                    String Line = m.group(1) + "|" + m.group(2);
+                    LoginInfo.mUserData.CategoryHolidays.add(Line);
+                    LoginInfo.ErrCode = 1;
+                }
+            }
+        });
 
         //HttpUntils.submitPostData(new URL(url), data, getCookies(), "application/x-www-form-urlencoded");
 
@@ -747,316 +476,64 @@ public class AolanOkHttpEx {
      */
     public int Request_Holidays(Map<String, String> data) throws IOException {
         String url = "http://alst.jsahvc.edu.cn/txxm/rsbulid/r_3_3_st_xsqj.aspx?xq=" + LoginInfo.mUserData.Term + "&nd=" + LoginInfo.mUserData.nd + "&msie=1";
-        String Data = "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"__EVENTTARGET\"\n" +
-                "\n" +
-                "databc\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"__EVENTARGUMENT\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"__VIEWSTATE\"\n" +
-                "\n" +
-                _viewstate + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"__VIEWSTATEGENERATOR\"\n" +
-                "\n" +
-                _viewStategenerator + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"__VIEWSTATEENCRYPTED\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"sele1\"\n" +
-                "\n" +
-                data.get("StudentID") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qjsj\"\n" +
-                "\n" +
-                data.get("Request_Time") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qjsy\"\n" +
-                "\n" +
-                data.get("Request_Categroy_str") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qjsydm\"\n" +
-                "\n" +
-                data.get("Request_Categroy_int") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qjjtyy\"\n" +
-                "\n" +
-                data.get("Request_Reason") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"File1\"; filename=\"\"\n" +
-                "Content-Type: application/octet-stream\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"fjm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"wcdz\"\n" +
-                "\n" +
-                data.get("Request_OutAddress") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"jzxmlxfs\"\n" +
-                "\n" +
-                data.get("Request_ContactInformation") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"nhxsj\"\n" +
-                "\n" +
-                data.get("Request_BackSchoolTime") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qjts\"\n" +
-                "\n" +
-                data.get("Request_HolidaysDay") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xjrq\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"czsj\"\n" +
-                "\n" +
-                data.get("Request_CaoZhuoTime") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"fdyspyj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"fdyspyjdm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"yxspyj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"yxspyjdm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xjspyj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xjspyjdm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"km\"\n" +
-                "\n" +
-                "st_xsqj\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"y_km\"\n" +
-                "\n" +
-                "st_xsqj\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pzd\"\n" +
-                "\n" +
-                "qjsj,qjsydm,qjjtyy,fjm,wcdz,jzxmlxfs,nhxsj,qjts,xjrq,czsj,fdyspyjdm,fdy,fdyspsj,yxspyjdm,yxspr,yxspsj,xjspyjdm,xjspr,xjspsj,sqpzck\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pzd_c\"\n" +
-                "\n" +
-                "sqpzck,\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pzd_lock\"\n" +
-                "\n" +
-                "xjrq,sqpzck,fdyspyjdm,fdy,fdyspsj,yxspyjdm,yxspr,yxspsj,xjspyjdm,xjspr,xjspsj,\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pzd_lock2\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pzd_lock3\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pzd_lock4\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pzd_y\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xdm\"\n" +
-                "\n" +
-                LoginInfo.mUserData.xdm + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"bjhm\"\n" +
-                "\n" +
-                LoginInfo.mUserData.ClassName + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xh\"\n" +
-                "\n" +
-                data.get("StudentID") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xm\"\n" +
-                "\n" +
-                data.get("StudentName") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qx_i\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qx_u\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qx_d\"\n" +
-                "\n" +
-                "0\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qx2_r\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qx2_i\"\n" +
-                "\n" +
-                "0\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qx2_u\"\n" +
-                "\n" +
-                "0\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"qx2_d\"\n" +
-                "\n" +
-                "0\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"databcxs\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"databcdel\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xzbz\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pkey\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pkey4\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xs_bj\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"bdbz\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"cw\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"hjzd\"\n" +
-                "\n" +
-                ",NHXSJ,QJSJ,QJTS,\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"st_xq\"\n" +
-                "\n" +
-                LoginInfo.mUserData.Term + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"st_nd\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"mc\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"smbz\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"fjmf\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"psrc\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pa\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pb\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pc\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pd\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pe\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"pf\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"msie\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"txxmxs\"\n" +
-                "\n" +
-                data.get("StudentID") + " " + data.get("StudentName") + "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"tkey\"\n" +
-                "\n" +
-                "qjsj\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"tkey4\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xp_pmc\"\n" +
-                "\n" +
-                "qjsy\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xp_pval\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xp_plx\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xp_pkm\"\n" +
-                "\n" +
-                "QJSYDM\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xp_pzd\"\n" +
-                "\n" +
-                "qjjtyy\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xp_pjxjdm\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xp_ipbz\"\n" +
-                "\n" +
-                "1\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
-                "Content-Disposition: form-data; name=\"xp_pjxjdm2\"\n" +
-                "\n" +
-                "\n" +
-                "------WebKitFormBoundary4MkGaZgofSEEJeRG--";
+        String Data = "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"__EVENTTARGET\"\n" + "\n" + "databc\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"__EVENTARGUMENT\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"__VIEWSTATE\"\n"
+                + "\n" + _viewstate + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"__VIEWSTATEGENERATOR\"\n" + "\n" + _viewStategenerator + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"__VIEWSTATEENCRYPTED\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"sele1\"\n" + "\n" + data.get("StudentID") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; " +
+                "name=\"qjsj\"\n" + "\n" + data.get("Request_Time") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"qjsy\"\n" + "\n" + data.get
+                ("Request_Categroy_str") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"qjsydm\"\n" + "\n" + data.get("Request_Categroy_int") + "\n"
+                + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"qjjtyy\"\n" + "\n" + data.get("Request_Reason") + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"File1\"; filename=\"\"\n" + "Content-Type: application/octet-stream\n" + "\n" + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"fjm\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: " +
+                "form-data; name=\"wcdz\"\n" + "\n" + data.get("Request_OutAddress") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"jzxmlxfs\"\n" +
+                "\n" + data.get("Request_ContactInformation") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"nhxsj\"\n" + "\n" + data.get
+                ("Request_BackSchoolTime") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"qjts\"\n" + "\n" + data.get("Request_HolidaysDay") + "\n"
+                + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xjrq\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"czsj\"\n" + "\n" + data.get("Request_CaoZhuoTime") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; " +
+                "name=\"fdyspyj\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"fdyspyjdm\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"yxspyj\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"yxspyjdm\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xjspyj\"\n" + "\n" +
+                "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xjspyjdm\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"km\"\n" + "\n" + "st_xsqj\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"y_km\"\n" + "\n" +
+                "st_xsqj\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pzd\"\n" + "\n" + "qjsj,qjsydm,qjjtyy,fjm,wcdz,jzxmlxfs,nhxsj,qjts,xjrq,czsj," +
+                "fdyspyjdm,fdy,fdyspsj,yxspyjdm,yxspr,yxspsj,xjspyjdm,xjspr,xjspsj,sqpzck\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pzd_c\"\n" +
+                "\n" + "sqpzck,\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pzd_lock\"\n" + "\n" + "xjrq,sqpzck,fdyspyjdm,fdy,fdyspsj,yxspyjdm,yxspr," +
+                "yxspsj,xjspyjdm,xjspr,xjspsj,\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pzd_lock2\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pzd_lock3\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"pzd_lock4\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pzd_y\"\n" + "\n" +
+                "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xdm\"\n" + "\n" + LoginInfo.mUserData.xdm + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"bjhm\"\n" + "\n" + LoginInfo.mUserData.ClassName + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xh\"\n" + "\n" + data.get("StudentID") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"xm\"\n" + "\n" + data.get("StudentName") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; " +
+                "name=\"qx_i\"\n" + "\n" + "1\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"qx_u\"\n" + "\n" + "1\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"qx_d\"\n" + "\n" + "0\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"qx2_r\"\n" + "\n" + "1\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"qx2_i\"\n" + "\n" + "0\n"
+                + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"qx2_u\"\n" + "\n" + "0\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"qx2_d\"\n" + "\n" + "0\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"databcxs\"\n" + "\n" +
+                "1\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"databcdel\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"xzbz\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pkey\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pkey4\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"xs_bj\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"bdbz\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"cw\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: " +
+                "form-data; name=\"hjzd\"\n" + "\n" + ",NHXSJ,QJSJ,QJTS,\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"st_xq\"\n" + "\n" + LoginInfo
+                .mUserData.Term + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"st_nd\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"mc\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: " +
+                "form-data; name=\"smbz\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"fjmf\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"psrc\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition:" +
+                " form-data; name=\"pa\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pb\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pc\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: " +
+                "form-data; name=\"pd\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pe\"\n" + "\n" + "\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"pf\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: " +
+                "form-data; name=\"msie\"\n" + "\n" + "1\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"txxmxs\"\n" + "\n" + data.get("StudentID") + " "
+                + data.get("StudentName") + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"tkey\"\n" + "\n" + "qjsj\n" +
+                "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"tkey4\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"xp_pmc\"\n" + "\n" + "qjsy\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xp_pval\"\n" + "\n" +
+                "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xp_plx\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"xp_pkm\"\n" + "\n" + "QJSYDM\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xp_pzd\"\n" + "\n" +
+                "qjjtyy\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xp_pjxjdm\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
+                "Content-Disposition: form-data; name=\"xp_ipbz\"\n" + "\n" + "1\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xp_pjxjdm2\"\n" + "\n" +
+                "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG--";
         String Cookie = getCookies();
         String r = HttpUntils.submitPostData(new URL(url), Data, Cookie, "multipart/form-data; boundary=----WebKitFormBoundary4MkGaZgofSEEJeRG");
         if (r.contains("增加记录成功") == true) {
@@ -1084,17 +561,8 @@ public class AolanOkHttpEx {
      * @param Request_CaoZhuoTime        操作时间 2017-4-23 16:21:11
      * @return 返回封装好的数据
      */
-    public Map<String, String> BundleData(String StudentID,
-                                          String StudentName,
-                                          String Request_Time,
-                                          String Request_Categroy_str,
-                                          String Request_Categroy_int,
-                                          String Request_Reason,
-                                          String Request_OutAddress,
-                                          String Request_ContactInformation,
-                                          String Request_BackSchoolTime,
-                                          String Request_HolidaysDay,
-                                          String Request_CaoZhuoTime) {
+    public Map<String, String> BundleData(String StudentID, String StudentName, String Request_Time, String Request_Categroy_str, String Request_Categroy_int, String Request_Reason, String
+            Request_OutAddress, String Request_ContactInformation, String Request_BackSchoolTime, String Request_HolidaysDay, String Request_CaoZhuoTime) {
         Map<String, String> data = new HashMap<String, String>();
         data.put("StudentID", StudentID);
         data.put("Request_Time", Request_Time);
@@ -1111,43 +579,40 @@ public class AolanOkHttpEx {
     }
 
     public void get_Holidays_LongTime() throws IOException {
-        String url = "http://alst.jsahvc.edu.cn/txxm/rsbulid/r_3_3_st_jjrqx.aspx?xq="
-                + LoginInfo.mUserData.Term + "&nd="
-                + LoginInfo.mUserData.nd + "&msie=1";
+        String url = "http://alst.jsahvc.edu.cn/txxm/rsbulid/r_3_3_st_jjrqx.aspx?xq=" + LoginInfo.mUserData.Term + "&nd=" + LoginInfo.mUserData.nd + "&msie=1";
         LoginInfo.ErrCode = 0;
-        OkGo.get(url)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(String s, Call call, Response response) {
-                        UpdataViewState(s);
-                        Pattern p = Pattern.compile("<option value=\"(.*?)\">(.*?)</option>");
-                        Matcher m = p.matcher(s);
-                        LoginInfo.mUserData.ClassMates = new ArrayList<String>();//初始化班级同学数据
-                        System.out.print(s);
-                        //当前学生:201513043 陈玉奇
-                        String Temps = GetSubText(s, "当前学生:", " ", 0);//获取自己的数据
-                        int ii = 0;
-                        while (m.find()) {
-                            String Temp = m.group(2);
-                            if (Temp.indexOf(Temps) != -1) {//顺带寻找当前个人位置
-                                LoginInfo.mUserData.ItemSelection = ii;//为了自适应Spinner控件的表项数据
-                            }
-                            LoginInfo.mUserData.ClassMates.add(Temp);//加入成员数据
-                            ii++;//数组从0开始,故i++放在最后
-                        }
-                        LoginInfo.mUserData.HolidaysEume = getViewByHolidaysLongInfomation(s);
-                        LoginInfo.mUserData.RoomsID = GetSubText(s, "<span id=\"l_sy_jbgr_sshm\">", "</span>", 0);
-                        LoginInfo.mUserData.HousePhoneNum = GetSubText(s, "<span id=\"l_sy_jbgr_jtdh\">", "</span>", 0);
-                        LoginInfo.mUserData.MySelfPhoneNum = GetSubText(s, "<span id=\"l_sy_jbgr_cell\">", "</span>", 0);
-                        LoginInfo.ErrCode = 1;
+        OkGo.get(url).execute(new StringCallback() {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                UpdataViewState(s);
+                Pattern p = Pattern.compile("<option value=\"(.*?)\">(.*?)</option>");
+                Matcher m = p.matcher(s);
+                LoginInfo.mUserData.ClassMates = new ArrayList<String>();//初始化班级同学数据
+                System.out.print(s);
+                //当前学生:201513043 陈玉奇
+                String Temps = GetSubText(s, "当前学生:", " ", 0);//获取自己的数据
+                int ii = 0;
+                while (m.find()) {
+                    String Temp = m.group(2);
+                    if (Temp.indexOf(Temps) != -1) {//顺带寻找当前个人位置
+                        LoginInfo.mUserData.ItemSelection = ii;//为了自适应Spinner控件的表项数据
                     }
+                    LoginInfo.mUserData.ClassMates.add(Temp);//加入成员数据
+                    ii++;//数组从0开始,故i++放在最后
+                }
+                LoginInfo.mUserData.HolidaysEume = getViewByHolidaysLongInfomation(s);
+                LoginInfo.mUserData.RoomsID = GetSubText(s, "<span id=\"l_sy_jbgr_sshm\">", "</span>", 0);
+                LoginInfo.mUserData.HousePhoneNum = GetSubText(s, "<span id=\"l_sy_jbgr_jtdh\">", "</span>", 0);
+                LoginInfo.mUserData.MySelfPhoneNum = GetSubText(s, "<span id=\"l_sy_jbgr_cell\">", "</span>", 0);
+                LoginInfo.ErrCode = 1;
+            }
 
-                    @Override
-                    public void onError(Call call, Response response, Exception e) {
-                        super.onError(call, response, e);
-                        LoginInfo.ErrCode = -1;
-                    }
-                });
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                LoginInfo.ErrCode = -1;
+            }
+        });
     }
 
 
@@ -1163,11 +628,12 @@ public class AolanOkHttpEx {
     public void QueryHolidaysLongClassMatesInfomation(String ID, String Name, String jjr, String jjrdm) throws IOException {
         LoginInfo.ErrCode = 0;
         String url = "http://alst.jsahvc.edu.cn/txxm/rsbulid/r_3_3_st_jjrqx.aspx?xq=" + LoginInfo.mUserData.Term + "&nd=" + LoginInfo.mUserData.nd + "&msie=1";
-        String Datas = "__EVENTTARGET=" +
-                "&__EVENTARGUMENT=" +
-                "&__VIEWSTATE=" + EncodeStr(_viewstate) +
-                "&__VIEWSTATEGENERATOR=" + _viewStategenerator +
-                "&__VIEWSTATEENCRYPTED=&sele1=" + ID + "&jjr=" + EncodeStr("") + "&jjrdm=" + "" + "&qxlb=&qxlbdm=&wcdz=&lxrq=&nhxsj=&fxrq=&ptbz=&km=st_jjrqx&y_km=st_jjrqx&pzd=jjrdm%2Cqxlbdm%2Cwcdz%2Clxrq%2Cnhxsj%2Cfxrq%2Cptbz&pzd_c=&pzd_lock=&pzd_lock2=&pzd_lock3=&pzd_lock4=&pzd_y=&xdm=" + LoginInfo.mUserData.xdm + "&bjhm=" + EncodeStr(LoginInfo.mUserData.ClassName) + "&xh=" + ID + "&xm=" + EncodeStr(Name) + "&qx_i=1&qx_u=1&qx_d=0&qx2_r=1&qx2_i=0&qx2_u=0&qx2_d=0&databcxs=&databcdel=&xzbz=t&pkey=04&pkey4=&xs_bj=&bdbz=&cw=&hjzd=%2CCP10%2CCP1%2CCP2%2CCP3%2CCP4%2CCP5%2CCP6%2CCP7%2CCP8%2CCP9%2CCPZF%2C&st_xq=" + LoginInfo.mUserData.Term + "&st_nd=&mc=&smbz=&fjmf=&psrc=&pa=&pb=&pc=&pd=&pe=&pf=&msie=1&txxmxs=" + EncodeStr(ID + " " + Name) + "&tkey=jjrdm&tkey4=&xp_pmc=jjr&xp_pval=&xp_plx=&xp_pkm=JJRDM&xp_pzd=qxlbdm&xp_pjxjdm=&xp_ipbz=1&xp_pjxjdm2=";
+        String Datas = "__EVENTTARGET=" + "&__EVENTARGUMENT=" + "&__VIEWSTATE=" + EncodeStr(_viewstate) + "&__VIEWSTATEGENERATOR=" + _viewStategenerator + "&__VIEWSTATEENCRYPTED=&sele1=" + ID +
+                "&jjr=" + EncodeStr("") + "&jjrdm=" + "" + "&qxlb=&qxlbdm=&wcdz=&lxrq=&nhxsj=&fxrq=&ptbz=&km=st_jjrqx&y_km=st_jjrqx&pzd=jjrdm%2Cqxlbdm%2Cwcdz%2Clxrq%2Cnhxsj%2Cfxrq%2Cptbz&pzd_c" +
+                "=&pzd_lock=&pzd_lock2=&pzd_lock3=&pzd_lock4=&pzd_y=&xdm=" + LoginInfo.mUserData.xdm + "&bjhm=" + EncodeStr(LoginInfo.mUserData.ClassName) + "&xh=" + ID + "&xm=" + EncodeStr(Name) +
+                "&qx_i=1&qx_u=1&qx_d=0&qx2_r=1&qx2_i=0&qx2_u=0&qx2_d=0&databcxs=&databcdel=&xzbz=t&pkey=04&pkey4=&xs_bj=&bdbz=&cw=&hjzd=%2CCP10%2CCP1%2CCP2%2CCP3%2CCP4%2CCP5%2CCP6%2CCP7%2CCP8%2CCP9" +
+                "%2CCPZF%2C&st_xq=" + LoginInfo.mUserData.Term + "&st_nd=&mc=&smbz=&fjmf=&psrc=&pa=&pb=&pc=&pd=&pe=&pf=&msie=1&txxmxs=" + EncodeStr(ID + " " + Name) +
+                "&tkey=jjrdm&tkey4=&xp_pmc=jjr&xp_pval=&xp_plx=&xp_pkm=JJRDM&xp_pzd=qxlbdm&xp_pjxjdm=&xp_ipbz=1&xp_pjxjdm2=";
         String Cookie = getCookies();
         String r = HttpUntils.submitPostData(new URL(url), Datas, Cookie, "application/x-www-form-urlencoded");
         LoginInfo.mUserData.HolidaysEume = getViewByHolidaysLongInfomation(r);
@@ -1200,10 +666,12 @@ public class AolanOkHttpEx {
         String Data;
         if (Category == 1) {
             LoginInfo.mUserData.CategoryHolidays = new ArrayList<>();
-            Data = "__EVENTTARGET=&__EVENTARGUMENT=&__LASTFOCUS=&__VIEWSTATE=" + EncodeStr(_viewstate) + "&__VIEWSTATEGENERATOR=" + _viewStategenerator + "&mh=&tj=&pdm=&pmc=jjr&pdm2=&pmc2=&pjxjdm=&pjxjdm2=&pval=&plx=&pkm=JJRDM&pzd=qxlbdm&xzbz=0&ipbz=1&cwbz=&xz1v=";
+            Data = "__EVENTTARGET=&__EVENTARGUMENT=&__LASTFOCUS=&__VIEWSTATE=" + EncodeStr(_viewstate) + "&__VIEWSTATEGENERATOR=" + _viewStategenerator +
+                    "&mh=&tj=&pdm=&pmc=jjr&pdm2=&pmc2=&pjxjdm=&pjxjdm2=&pval=&plx=&pkm=JJRDM&pzd=qxlbdm&xzbz=0&ipbz=1&cwbz=&xz1v=";
         } else {
             LoginInfo.mUserData.WithOutCategory = new ArrayList<>();
-            Data = "__EVENTTARGET=&__EVENTARGUMENT=&__LASTFOCUS=&__VIEWSTATE=" + EncodeStr(_viewstate) + "&__VIEWSTATEGENERATOR=" + _viewStategenerator + "&mh=&tj=&pdm=&pmc=qxlb&pdm2=&pmc2=&pjxjdm=&pjxjdm2=&pval=&plx=&pkm=QXLBDM&pzd=wcdz&xzbz=0&ipbz=1&cwbz=&xz1v=";
+            Data = "__EVENTTARGET=&__EVENTARGUMENT=&__LASTFOCUS=&__VIEWSTATE=" + EncodeStr(_viewstate) + "&__VIEWSTATEGENERATOR=" + _viewStategenerator +
+                    "&mh=&tj=&pdm=&pmc=qxlb&pdm2=&pmc2=&pjxjdm=&pjxjdm2=&pval=&plx=&pkm=QXLBDM&pzd=wcdz&xzbz=0&ipbz=1&cwbz=&xz1v=";
         }
         String Cookie = getCookies();
         String r = HttpUntils.submitPostData(new URL(url), Data, Cookie, "application/x-www-form-urlencoded");
@@ -1228,7 +696,9 @@ public class AolanOkHttpEx {
      */
     private List<Map<String, Object>> getViewByHolidaysLongInfomation(String str) {
         List<Map<String, Object>> mlist = new ArrayList<Map<String, Object>>();
-        Pattern p = Pattern.compile("<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td>");
+        Pattern p = Pattern.compile("<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)" +
+                "[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td " +
+                "nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td><td nowrap=\"nowrap\">[\\s]*<span>(.*?)[\\s]*</span>[\\s]*</td>");
         Matcher m = p.matcher(str);
         int i = 0;
         while (m.find()) {
@@ -1260,26 +730,15 @@ public class AolanOkHttpEx {
      * @return 1=OK -1=增加失败,并在全局 LoginInfo.Result 中提交错误信息 3=未知错误
      * @throws IOException 异常捕捉
      */
-    public int HolidaysDays_Long(String y_jjr, String y_jjrdm, String y_qxlb, String y_qxlbdm,
-                                 String y_wcdz, String y_lxrq, String y_nhxsj, String y_fxrq, String y_ptbz) throws IOException {
+    public int HolidaysDays_Long(String y_jjr, String y_jjrdm, String y_qxlb, String y_qxlbdm, String y_wcdz, String y_lxrq, String y_nhxsj, String y_fxrq, String y_ptbz) throws IOException {
         String url = "http://alst.jsahvc.edu.cn/txxm/rsbulid/r_3_3_st_jjrqx.aspx?xq=" + LoginInfo.mUserData.Term + "&nd=" + LoginInfo.mUserData.nd + "&msie=1";
-        String Data = "__EVENTTARGET=databc&__EVENTARGUMENT=&__VIEWSTATE="
-                + EncodeStr(_viewstate) + "&__VIEWSTATEGENERATOR=" + _viewStategenerator
-                + "&__VIEWSTATEENCRYPTED=&jjr=" + EncodeStr(y_jjr)
-                + "&jjrdm=" + y_jjrdm + "&qxlb=" + EncodeStr(y_qxlb)
-                + "&qxlbdm=" + y_qxlbdm + "&wcdz=" + EncodeStr(y_wcdz) + "&lxrq="
-                + y_lxrq + "&nhxsj=" + y_nhxsj + "&fxrq=" + y_fxrq + "&ptbz=" +
-                EncodeStr(y_ptbz) + "&km=st_jjrqx&y_km=st_jjrqx&pzd=jjrdm%2Cqxlbdm%2Cwcdz" +
-                "%2Clxrq%2Cnhxsj%2Cfxrq%2Cptbz&pzd_c=&pzd_lock=&pzd_lock2=&pzd_lock3=&pzd_lock4=&pzd_y=&xdm=" +
-                LoginInfo.mUserData.xdm + "&bjhm=" + EncodeStr(LoginInfo.mUserData.ClassName) + "&xh="
-                + LoginInfo.mUserData.UserNum + "&xm=" + EncodeStr(LoginInfo.mUserData.Name) +
-                "&qx_i=1&qx_u=1&qx_d=0&qx2_r=1&qx2_i=0&qx2_u=0&qx2_d=0&databcxs=1&databcdel=&" +
-                "xzbz=&pkey=04&pkey4=&xs_bj=&bdbz=&cw=&hjzd=%2CCP10%2CCP1%2CCP2%2CCP3%2CCP4%2CC" +
-                "P5%2CCP6%2CCP7%2CCP8%2CCP9%2CCPZF%2C&st_xq=" + LoginInfo.mUserData.Term +
-                "&st_nd=&mc=&smbz=&fjmf=&psrc=&pa=&pb=&pc=&pd=&pe=&pf=&msie=1&txxmxs=" +
-                LoginInfo.mUserData.UserNum + EncodeStr(" " + LoginInfo.mUserData.Name)
-                + "&tkey=jjrdm&tkey4=&xp_pmc=qxlb&xp_pval=&xp_plx=&xp_pkm=QXLBDM&xp_pzd=wcdz" +
-                "&xp_pjxjdm=&xp_ipbz=1&xp_pjxjdm2=";
+        String Data = "__EVENTTARGET=databc&__EVENTARGUMENT=&__VIEWSTATE=" + EncodeStr(_viewstate) + "&__VIEWSTATEGENERATOR=" + _viewStategenerator + "&__VIEWSTATEENCRYPTED=&jjr=" + EncodeStr
+                (y_jjr) + "&jjrdm=" + y_jjrdm + "&qxlb=" + EncodeStr(y_qxlb) + "&qxlbdm=" + y_qxlbdm + "&wcdz=" + EncodeStr(y_wcdz) + "&lxrq=" + y_lxrq + "&nhxsj=" + y_nhxsj + "&fxrq=" + y_fxrq +
+                "&ptbz=" + EncodeStr(y_ptbz) + "&km=st_jjrqx&y_km=st_jjrqx&pzd=jjrdm%2Cqxlbdm%2Cwcdz" + "%2Clxrq%2Cnhxsj%2Cfxrq%2Cptbz&pzd_c=&pzd_lock=&pzd_lock2=&pzd_lock3=&pzd_lock4=&pzd_y=&xdm="
+                + LoginInfo.mUserData.xdm + "&bjhm=" + EncodeStr(LoginInfo.mUserData.ClassName) + "&xh=" + LoginInfo.mUserData.UserNum + "&xm=" + EncodeStr(LoginInfo.mUserData.Name) +
+                "&qx_i=1&qx_u=1&qx_d=0&qx2_r=1&qx2_i=0&qx2_u=0&qx2_d=0&databcxs=1&databcdel=&" + "xzbz=&pkey=04&pkey4=&xs_bj=&bdbz=&cw=&hjzd=%2CCP10%2CCP1%2CCP2%2CCP3%2CCP4%2CC" +
+                "P5%2CCP6%2CCP7%2CCP8%2CCP9%2CCPZF%2C&st_xq=" + LoginInfo.mUserData.Term + "&st_nd=&mc=&smbz=&fjmf=&psrc=&pa=&pb=&pc=&pd=&pe=&pf=&msie=1&txxmxs=" + LoginInfo.mUserData.UserNum +
+                EncodeStr(" " + LoginInfo.mUserData.Name) + "&tkey=jjrdm&tkey4=&xp_pmc=qxlb&xp_pval=&xp_plx=&xp_pkm=QXLBDM&xp_pzd=wcdz" + "&xp_pjxjdm=&xp_ipbz=1&xp_pjxjdm2=";
         String Result = HttpUntils.submitPostData(new URL(url), Data, getCookies(), "application/x-www-form-urlencoded");
         System.out.print(Result);
         if (Result == null) {
