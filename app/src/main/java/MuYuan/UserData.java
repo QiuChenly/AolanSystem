@@ -43,5 +43,6 @@ public class UserData {
     public String HousePhoneNum;//家庭电话
     public String MySelfPhoneNum;//个人电话
     public static List<String> CategoryHolidays = new ArrayList<String>();
+    public static List<String> CategoryHolidays_Long = new ArrayList<String>();
     public static List<String> WithOutCategory = new ArrayList<String>();
 }

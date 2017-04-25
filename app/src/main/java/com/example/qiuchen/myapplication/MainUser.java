@@ -440,15 +440,15 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                         public void run() {
                                             super.run();
                                             try {
-//                                                //优化性能,加载过一次就不需要再次加载数据
-//                                                if (LoginInfo.mUserData.CategoryHolidays.isEmpty() == true) {
-                                                LoginInfo.aolanEx.Init_Holidays_xzdm();
-//                                                }
-                                                while (LoginInfo.ErrCode == 0) {
-                                                    try {
-                                                        Thread.sleep(100);
-                                                    } catch (InterruptedException e) {
-                                                        e.printStackTrace();
+                                                //优化性能,加载过一次就不需要再次加载数据
+                                                if (LoginInfo.mUserData.CategoryHolidays.isEmpty() == true) {
+                                                    LoginInfo.aolanEx.Init_Holidays_xzdm();
+                                                    while (LoginInfo.ErrCode == 0) {
+                                                        try {
+                                                            Thread.sleep(100);
+                                                        } catch (InterruptedException e) {
+                                                            e.printStackTrace();
+                                                        }
                                                     }
                                                 }
                                                 TempsHandle.sendEmptyMessage(0);
@@ -597,7 +597,9 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                     @Override
                     public void handleMessage(Message msg) {
                         super.handleMessage(msg);
-                        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(MainUser.this, android.R.layout.simple_spinner_item, LoginInfo.mUserData.CategoryHolidays);
+
+                        //TODO:适配长假的Spinner数据
+                        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(MainUser.this, android.R.layout.simple_spinner_item, LoginInfo.mUserData.CategoryHolidays_Long);
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         ((Spinner) findViewById(R.id.long_holidays)).setAdapter(arrayAdapter);
                         arrayAdapter = new ArrayAdapter<String>(MainUser.this, android.R.layout.simple_spinner_item, LoginInfo.mUserData.WithOutCategory);
@@ -651,7 +653,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                         Spinner long_GoCategory = (Spinner) findViewById(R.id.long_holidaysToGo);
 
                                         //获取请假类别
-                                        String[] CategoryHolidays = LoginInfo.mUserData.CategoryHolidays.get(long_Holidays.getSelectedItemPosition()).split("\\|");
+                                        String[] CategoryHolidays = LoginInfo.mUserData.CategoryHolidays_Long.get(long_Holidays.getSelectedItemPosition()).split("\\|");
 
                                         //获取去向类别
                                         String[] WithOutCategory = LoginInfo.mUserData.WithOutCategory.get(long_GoCategory.getSelectedItemPosition()).split("\\|");
@@ -695,17 +697,20 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                         new Thread() {
                             @Override
                             public void run() {
-                                try {
-                                    LoginInfo.aolanEx.Init_HolidaysLong(1);
-                                    LoginInfo.aolanEx.Init_HolidaysLong(2);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                while (LoginInfo.ErrCode == 0) {
+                                //优化性能,加载过一次就不需要再次加载数据
+                                if (LoginInfo.mUserData.CategoryHolidays_Long.isEmpty() == true) {
                                     try {
-                                        Thread.sleep(100);
-                                    } catch (InterruptedException e) {
+                                        LoginInfo.aolanEx.Init_HolidaysLong(1);
+                                        LoginInfo.aolanEx.Init_HolidaysLong(2);
+                                    } catch (IOException e) {
                                         e.printStackTrace();
+                                    }
+                                    while (LoginInfo.ErrCode == 0) {
+                                        try {
+                                            Thread.sleep(100);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }
                                 Temp_HandUpdataView.sendEmptyMessage(0);
