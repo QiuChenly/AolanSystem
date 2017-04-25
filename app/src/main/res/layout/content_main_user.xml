@@ -9,11 +9,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.qiuchen.myapplication.MainUser"
     tools:showIn="@layout/app_bar_main_user">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="开发者:秋城落叶\n江苏农牧科技职业学院\n农业工程系"
-        android:gravity="center"
-        ></TextView>
-   <!--android:background="@mipmap/backgroundpicture"-->
+        android:layout_marginBottom="10sp"
+        android:backgroundTintMode="src_over"
+        android:gravity="center|bottom"
+        android:text="Android牧院信息系统客户端\nVer 1.0.0.2\nAlpha Updata\n\n江苏农牧科技职业学院\n农业工程系\n秋城落叶 设计"
+        android:textSize="15sp" />
+    <!--android:background="@mipmap/backgroundpicture"-->
 </LinearLayout>

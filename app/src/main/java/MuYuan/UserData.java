@@ -1,5 +1,6 @@
 package MuYuan;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,5 +37,11 @@ public class UserData {
     public List<String> ClassMates;//同班同学数据集合
     public List<Map<String, Object>> HolidaysEume;//請假記錄
     public int ItemSelection = 0;
-
+    public String Password;
+    public String UserNum;
+    public String RoomsID;//宿舍编号
+    public String HousePhoneNum;//家庭电话
+    public String MySelfPhoneNum;//个人电话
+    public static List<String> CategoryHolidays = new ArrayList<String>();
+    public static List<String> WithOutCategory = new ArrayList<String>();
 }

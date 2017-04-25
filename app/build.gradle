@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
+
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
     useLibrary 'org.apache.http.legacy'
+
     defaultConfig {
         applicationId "com.example.qiuchen.myapplication"
-        minSdkVersion 22
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -28,5 +30,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile 'com.android.support:design:25.3.1'
-    testCompile 'junit:junit:4.12'
+    compile 'com.zhy:okhttputils:2.6.2'
+
+    //compile 'com.github.youngkaaa:circleview:0.1.0'
+
+    compile 'com.lzy.net:okgo:2.1.4'        //可以单独使用，不需要依赖下方的扩展包
+    compile 'com.lzy.net:okrx:0.1.2'        //RxJava扩展支持，根据需要添加
+    compile 'com.lzy.net:okserver:1.1.3'
 }

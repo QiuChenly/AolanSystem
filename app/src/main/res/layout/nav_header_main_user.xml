@@ -12,12 +12,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
     <!-- 2017.04.17 Fix 在 2K 平板电脑上显示UI错位的问题 -->
-    <!-- 在下面的ImageView中,即将使用圆角显示 -->
+    <!-- 在下面的ImageView中,即将使用圆角显示
     <ImageView
         android:id="@+id/PersonPic"
         android:layout_width="60sp"
         android:layout_height="90sp"
         android:layout_gravity="center"
+        android:layout_weight="3"
+        app:srcCompat="@android:drawable/sym_def_app_icon" />-->
+    <MuYuan.XCRoundImageView
+        android:id="@+id/PersonPic"
+        android:layout_width="74sp"
+        android:layout_height="90sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25sp"
         android:layout_weight="3"
         app:srcCompat="@android:drawable/sym_def_app_icon" />
 

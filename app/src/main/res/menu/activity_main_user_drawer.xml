@@ -5,7 +5,7 @@
         <item
             android:id="@+id/myInfo"
             android:icon="@drawable/ic_menu_camera"
-            android:title="我的基本信息" />
+            android:title="个人信息" />
         <item
             android:id="@+id/mDaysHoliday"
             android:icon="@drawable/ic_menu_gallery"
@@ -13,7 +13,7 @@
         <item
             android:id="@+id/mLongHoliday"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="寒暑假请假" />
+            android:title="节假日请假" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"

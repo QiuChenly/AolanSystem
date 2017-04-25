@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mDaysListViewLinearLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/bbbbbackground"
-    android:orientation="vertical">
+              android:id="@+id/holidasLong"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <LinearLayout
 
@@ -13,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/PleaseChoiceInfo"
+            android:id="@+id/PleaseChoiceInfo_holidays_long"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
@@ -29,23 +28,36 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/mStudentSelect"
+                android:id="@+id/mStudentSelect_holidays_long"
                 android:layout_width="210sp"
                 android:layout_height="40sp"
                 android:layout_gravity="center"
                 android:background="@mipmap/list"
-                android:gravity="center">
-
-            </Spinner>
+                android:gravity="center"/>
 
             <Button
-                android:layout_marginLeft="15sp"
-                android:id="@+id/mRequestHoliday"
+                android:id="@+id/mRequestHoliday_holidays_long"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="15sp"
                 android:background="@mipmap/add"
-                android:text="" />
+                android:text=""/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/long_ClassMatesContactInfomation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="a"/>
 
         </LinearLayout>
 
@@ -53,14 +65,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <ListView
-                android:layout_marginTop="5sp"
-                android:id="@+id/mDaysListView"
+                android:id="@+id/mDaysListView_holidays_long"
                 android:layout_width="match_parent"
-                android:background="@mipmap/listviebackground"
-                android:layout_height="wrap_content" />
-
-
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:background="@mipmap/listviebackground"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
