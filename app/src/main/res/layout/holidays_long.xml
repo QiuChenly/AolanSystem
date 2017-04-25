@@ -73,6 +73,9 @@
                 android:id="@+id/mDaysListView_holidays_long"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
                 android:layout_marginTop="5sp"
                 android:background="@mipmap/listviebackground"/>
         </LinearLayout>
