@@ -108,7 +108,14 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
             Leader = "班级群众";
         }
         mPersonName.setText(LoginInfo.mUserData.Name + "," + Leader);
-        mPersonImage.setImageDrawable(getResources().getDrawable(R.mipmap.userimg));
+        mPersonImage.setImageDrawable(getResources().getDrawable(R.mipmap.launcherico));
+        //LoginInfo.mUserData.y_qq="";
+        //TODO:测试代码,用完就删
+        //判断是否已存在QQ号
+        if (LoginInfo.mUserData.y_qq.length() > 0) {
+            LoginInfo.mUserData.OICQ = LoginInfo.mUserData.y_qq;
+            UpdataQQInfomation();
+        }
         getMenuInflater().inflate(R.menu.main_user, menu);
         return true;
     }
@@ -794,33 +801,37 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
             LoginInfo.IsInitChecked = true;
             ((CheckBox) findViewById(R.id.InfomationSafe)).setChecked(true);
         }
+
         findViewById(R.id.getOICQNames).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Handler temp = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        super.handleMessage(msg);
-                        mPersonName.setText(LoginInfo.Result + "(" + LoginInfo.mUserData.Name + ")");
-                        mPersonImage.setImageBitmap(LoginInfo.UserPic);
-                    }
-                };
-                new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            LoginInfo.Result = LoginInfo.aolanEx.getOICQName("963084062");
-                            LoginInfo.UserPic = LoginInfo.aolanEx.getOICQBitMap("963084062");
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        temp.sendEmptyMessage(0);
-                    }
-                }.start();
-
+                LoginInfo.mUserData.OICQ = ((EditText) findViewById(R.id.OICQNums)).getText().toString();
+                UpdataQQInfomation();
             }
         });
+    }
+
+    private void UpdataQQInfomation() {
+        final Handler temp = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                mPersonName.setText("昵称:"+LoginInfo.Result + "(" + LoginInfo.mUserData.Name + ")");
+                mPersonImage.setImageBitmap(LoginInfo.UserPic);
+            }
+        };
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    LoginInfo.Result = LoginInfo.aolanEx.getOICQName(LoginInfo.mUserData.OICQ);
+                    LoginInfo.UserPic = LoginInfo.aolanEx.getOICQBitMap(LoginInfo.mUserData.OICQ);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                temp.sendEmptyMessage(0);
+            }
+        }.start();
     }
 
 

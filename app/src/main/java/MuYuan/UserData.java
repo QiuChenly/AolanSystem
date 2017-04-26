@@ -9,6 +9,8 @@ import java.util.Map;
  */
 
 public class UserData {
+    public String OICQ;
+
     //注意: y_ 开头的sb参数是根据网站原有sb参数名命名的,非本人自创.
     public String nd;//入学时间/年度
     public String ClassName;//班级名称

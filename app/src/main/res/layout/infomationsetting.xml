@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:id="@+id/InfomationSetting"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,10 +16,24 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="开启隐私保护(自动将手机号码显示为*号)"/>
-        <Button android:layout_height="wrap_content"
-                android:id="@+id/getOICQNames"
+
+        <EditText
+            android:id="@+id/OICQNums"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:visibility="gone"
+            android:hint="请输入您的QQ"
+            />
+
+        <Button
+            android:id="@+id/getOICQNames"
             android:layout_width="wrap_content"
-            android:text="getName"/>
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:text="保存"/>
 
     </GridLayout>
 </LinearLayout>

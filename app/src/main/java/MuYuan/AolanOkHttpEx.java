@@ -377,7 +377,7 @@ public class AolanOkHttpEx {
         Matcher m = p.matcher(string);
         int i = 0;//重设计数器
         while (m.find()) {
-            String Temp = "未通过";
+            String Temp = "等待通过";
             if (m.group(12).indexOf("√") != -1)//发现一个怪现象,他不能做文本间的对比,比如说m.group(13)=="√"这样就会返回不一致的信息
             {
                 Temp = "通过";
@@ -463,10 +463,6 @@ public class AolanOkHttpEx {
                 }
             }
         });
-
-        //HttpUntils.submitPostData(new URL(url), data, getCookies(), "application/x-www-form-urlencoded");
-
-
     }
 
 
