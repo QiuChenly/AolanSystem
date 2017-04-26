@@ -750,7 +750,6 @@ public class AolanOkHttpEx {
             LoginInfo.Result = GetSubText(Result, "<input name=\"cw\" type=\"hidden\" id=\"cw\" value=\"", "\"", 0);
             return -1;
         }
-
     }
 
     public String getOICQName(String Uin) throws IOException {

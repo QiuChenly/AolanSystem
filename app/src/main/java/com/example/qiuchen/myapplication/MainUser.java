@@ -154,6 +154,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        LoginInfo.IsInitChecked = false;//修正切换View后没有及时重置导致点击返回键重复加载布局的BUG
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.myInfo) {
