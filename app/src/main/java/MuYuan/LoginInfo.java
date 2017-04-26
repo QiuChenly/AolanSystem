@@ -3,6 +3,7 @@ package MuYuan;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 import com.example.qiuchen.myapplication.MainUser;
 
@@ -21,6 +22,7 @@ public class LoginInfo {
     public static Boolean IsLongRequestViews = false;
     public static ProgressDialog Dialog = null;
     public static Boolean IsInitChecked = false;
+    public static Bitmap UserPic;
 
     /**
      * 计算天数,重写js算法
