@@ -243,6 +243,7 @@ public class AolanOkHttpEx {
                         if (s.indexOf("初始密码为身份证号后六位") != -1) {
                             login(ct, LoginInfo.mUserData.UserNum, LoginInfo.mUserData.Password);
                             getClassMatesInfo();
+                            return;
                         }
                         // s 即为所需要的结果
                         String Res = s;
