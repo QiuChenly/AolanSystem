@@ -1,6 +1,12 @@
 package MuYuan;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.example.qiuchen.myapplication.MainUser;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by QiuChen on 2017/4/15.
@@ -14,10 +20,12 @@ public class LoginInfo {
     public static Boolean IsRequestViews = false;
     public static Boolean IsLongRequestViews = false;
     public static ProgressDialog Dialog = null;
+    public static Boolean IsInitChecked = false;
 
     /**
      * 计算天数,重写js算法
-     * @param Request_Time 请假时间  如2011.1.1即可
+     *
+     * @param Request_Time   请假时间  如2011.1.1即可
      * @param BackSchoolTime 拟回校时间  如2011.1.1即可
      * @return 返回计算结果天数
      */
@@ -25,7 +33,8 @@ public class LoginInfo {
         int retTime;
         String[] Request = Request_Time.split("\\.");
         String[] BackSchool = BackSchoolTime.split("\\.");
-        retTime = (Integer.valueOf(BackSchool[0]) - Integer.valueOf(Request[0])) * 365 + (Integer.valueOf(BackSchool[1]) - Integer.valueOf(Request[1])) * 31 + (Integer.valueOf(BackSchool[2]) - Integer.valueOf(Request[2]) + 1);
+        retTime = (Integer.valueOf(BackSchool[0]) - Integer.valueOf(Request[0])) * 365 + (Integer.valueOf(BackSchool[1]) - Integer.valueOf(Request[1])) * 31 + (Integer.valueOf(BackSchool[2]) -
+                Integer.valueOf(Request[2]) + 1);
         if (retTime <= 0) {
             return null;
         } else {

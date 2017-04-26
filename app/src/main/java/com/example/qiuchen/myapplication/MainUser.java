@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +22,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,6 +51,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
     TextView mPersonLink = null;
     Toolbar toolbar = null;
     long BackTime = 0;
+    SharedPreferences Share;
 
     public void initiation() {
         mPersonImage = (ImageView) findViewById(R.id.PersonPic);
@@ -77,6 +81,8 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
         LoginInfo.Dialog.setTitle("页面加载中...");
         LoginInfo.Dialog.setMessage("初始化页面数据中...");
         LoginInfo.Dialog.setCancelable(false);
+
+        Share = MainUser.this.getSharedPreferences("QiuChenSet", MODE_PRIVATE);
     }
 
     @Override
@@ -154,7 +160,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
             toolbar.setTitle("节假日请假");
             SwitchViews.sendMessage(SwitchView(3));
         } else if (id == R.id.nav_manage) {
-            toolbar.setTitle("啊啦,这是一个空页面哦~");
+            toolbar.setTitle("隐私保护");
             SwitchViews.sendMessage(SwitchView(4));
         } else if (id == R.id.nav_share) {
             Toast.makeText(this, "你好,我是秋城落叶,想联系我?请点击下方邮箱.", Toast.LENGTH_SHORT).show();
@@ -485,8 +491,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                     InitLongHolidaysView(inflater);
                     break;
                 case 4:
-                    linearLayout = (LinearLayout) findViewById(R.id.mViews);
-                    linearLayout.removeAllViews();
+                    InitInfomationSafe(inflater);
                     break;
                 default:
                     break;
@@ -497,7 +502,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
     /**
      * 子程序.初始化长假请假视图数据
      *
-     * @param inflater
+     * @param inflater 默认局部参数,可不传自己定义
      */
     private void InitLongHolidaysView(final LayoutInflater inflater) {
         LoginInfo.mUserData.HolidaysEume = new ArrayList<Map<String, Object>>();
@@ -540,8 +545,11 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                         ((ListView) findViewById(R.id.mDaysListView_holidays_long)).setAdapter(new SimpleAdapter(MainUser
                                 .this, LoginInfo.mUserData.HolidaysEume, R.layout.listviewadapteritem, new String[]{"mItemIndex", "mItem_HolidayBecause", "mItem_HolidayTime", "mItem_WhereOutSide",
                                 "mItemAcceptState"}, new int[]{R.id.mItemIndex, R.id.mItem_HolidayBecause, R.id.mItem_HolidayTime, R.id.mItem_WhereOutSide, R.id.mItemAcceptState}));
-
-                        ((EditText) findViewById(R.id.long_ClassMatesContactInfomation)).setText("家庭电话:" + LoginInfo.mUserData.HousePhoneNum + "\n个人电话:" + LoginInfo.mUserData.MySelfPhoneNum);
+                        if (Share.getBoolean("SafeInfomation", false)) {
+                            ((EditText) findViewById(R.id.long_ClassMatesContactInfomation)).setText("家庭电话:已保护个人隐私.\n个人电话:已保护个人隐私.");
+                        } else {
+                            ((EditText) findViewById(R.id.long_ClassMatesContactInfomation)).setText("家庭电话:" + LoginInfo.mUserData.HousePhoneNum + "\n个人电话:" + LoginInfo.mUserData.MySelfPhoneNum);
+                        }
                     }
                 };
 
@@ -607,9 +615,15 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                         ((Spinner) findViewById(R.id.long_holidaysToGo)).setAdapter(arrayAdapter);
 
                         //数据获取完毕,开始设置一些信息
+                        if (Share.getBoolean("SafeInfomation", false)) {
+                            ((TextView) findViewById(R.id.long_TextView_HousePhoneNum)).setText("*********");
+                            ((TextView) findViewById(R.id.long_TextView_YouSelfCallNum)).setText("*********");
+                        } else {
+                            ((TextView) findViewById(R.id.long_TextView_HousePhoneNum)).setText(LoginInfo.mUserData.HousePhoneNum);
+                            ((TextView) findViewById(R.id.long_TextView_YouSelfCallNum)).setText(LoginInfo.mUserData.MySelfPhoneNum);
+
+                        }
                         ((TextView) findViewById(R.id.long_TextView_RoomsNum)).setText(LoginInfo.mUserData.RoomsID);
-                        ((TextView) findViewById(R.id.long_TextView_HousePhoneNum)).setText(LoginInfo.mUserData.HousePhoneNum);
-                        ((TextView) findViewById(R.id.long_TextView_YouSelfCallNum)).setText(LoginInfo.mUserData.MySelfPhoneNum);
 
                         // TODO: 2017/4/24  设置节假日三个时间编辑框默认值
                         ((EditText) findViewById(R.id.long_OutOfSchoolTime)).setText(String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH)) + "-" + String
@@ -741,6 +755,68 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                 UpdataView.sendEmptyMessage(0);
             }
         }.start();
+    }
+
+
+    /**
+     * View 隐私保护页的设置
+     *
+     * @param inflater 默认参数
+     */
+    private void InitInfomationSafe(final LayoutInflater inflater) {
+        final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mViews);
+        linearLayout.removeAllViews();
+        //移除所有控件,并准备加入新的控件
+        LinearLayout i = (LinearLayout) inflater.inflate(R.layout.infomationsetting, null).findViewById(R.id.InfomationSetting);
+        linearLayout.addView(i);
+
+        ((CheckBox) findViewById(R.id.InfomationSafe)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor edit = Share.edit();
+                if (isChecked) {
+                    if (!LoginInfo.IsInitChecked) {//判断是否初始化的点击,如果是就重置状态,并且不响应他的事件,以提高性能
+                        edit.putBoolean("SafeInfomation", true);
+                        edit.apply();
+                        Toast.makeText(MainUser.this, "保存成功!隐私保护已开启!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        LoginInfo.IsInitChecked = false;
+                    }
+                } else {
+                    edit.putBoolean("SafeInfomation", false);
+                    edit.apply();
+                    Toast.makeText(MainUser.this, "保存成功!隐私保护已关闭!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        if (Share.getBoolean("SafeInfomation", false)) {
+            LoginInfo.IsInitChecked = true;
+            ((CheckBox) findViewById(R.id.InfomationSafe)).setChecked(true);
+        }
+        findViewById(R.id.getOICQNames).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Handler temp = new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        super.handleMessage(msg);
+                        Toast.makeText(MainUser.this, LoginInfo.Result, Toast.LENGTH_SHORT).show();
+                    }
+                };
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            LoginInfo.Result = LoginInfo.aolanEx.getOICQName("963084062");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        temp.sendEmptyMessage(0);
+                    }
+                }.start();
+
+            }
+        });
     }
 
 

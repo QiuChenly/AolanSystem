@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:id="@+id/InfomationSetting"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/InfomationSafe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="开启隐私保护(自动将手机号码显示为*号)"/>
+        <Button android:layout_height="wrap_content"
+                android:id="@+id/getOICQNames"
+            android:layout_width="wrap_content"
+            android:text="getName"/>
+
+    </GridLayout>
+</LinearLayout>
