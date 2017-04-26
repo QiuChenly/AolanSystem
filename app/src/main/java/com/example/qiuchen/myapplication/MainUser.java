@@ -331,8 +331,8 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
 
                                             //处理编辑框事件
                                             final Calendar calendar = Calendar.getInstance();
-                                            final String Temps_Time = String.valueOf(calendar.get(Calendar.YEAR)) + "" + "." + String.valueOf(calendar.get(Calendar.MONTH)) + "." + String.valueOf
-                                                    (calendar.get(Calendar.DAY_OF_MONTH));
+                                            final String Temps_Time = String.valueOf(calendar.get(Calendar.YEAR)) + "" + "." + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String
+                                                    .valueOf(calendar.get(Calendar.DAY_OF_MONTH));
 
                                             //计算天数
                                             final EditText HolidaysDay = (EditText) findViewById(R.id.Request_HolidaysDays);
@@ -422,7 +422,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                                             String ContactInformation = ((EditText) findViewById(R.id.Request_ContactInformation)).getText().toString();
                                                             String BackToSchoolTime = ((EditText) findViewById(R.id.Request_BackToSchoolTime)).getText().toString();
                                                             String HolidaysDay = ((EditText) findViewById(R.id.Request_HolidaysDays)).getText().toString();
-                                                            String CaoZuoTime = String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH)) + "-" + String
+                                                            String CaoZuoTime = String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + String
                                                                     .valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " " + String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + String.valueOf
                                                                     (calendar.get(Calendar.MINUTE)) + ":" + String.valueOf(calendar.get(Calendar.SECOND));//
                                                             // "2017-4-23 16:21:11"
@@ -626,10 +626,11 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                         ((TextView) findViewById(R.id.long_TextView_RoomsNum)).setText(LoginInfo.mUserData.RoomsID);
 
                         // TODO: 2017/4/24  设置节假日三个时间编辑框默认值
-                        ((EditText) findViewById(R.id.long_OutOfSchoolTime)).setText(String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH)) + "-" + String
-                                .valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
-                        ((EditText) findViewById(R.id.long_WillBackOfSchool)).setText(String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH)) + "-几号?");
-                        ((EditText) findViewById(R.id.long_RealBackToSchoolTime)).setText(String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH)) + "-几号?");
+                        ((EditText) findViewById(R.id.long_OutOfSchoolTime)).setText(String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" +
+                                String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+                        ((EditText) findViewById(R.id.long_WillBackOfSchool)).setText(String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-几号?");
+                        ((EditText) findViewById(R.id.long_RealBackToSchoolTime)).setText(String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) +
+                                "-几号?");
 
                         //提交按钮事件的实现
                         findViewById(R.id.long_HolidaysOK).setOnClickListener(new View.OnClickListener() {
@@ -800,7 +801,8 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                     @Override
                     public void handleMessage(Message msg) {
                         super.handleMessage(msg);
-                        Toast.makeText(MainUser.this, LoginInfo.Result, Toast.LENGTH_SHORT).show();
+                        mPersonName.setText(LoginInfo.Result + "(" + LoginInfo.mUserData.Name + ")");
+                        mPersonImage.setImageBitmap(LoginInfo.UserPic);
                     }
                 };
                 new Thread() {
@@ -808,6 +810,8 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                     public void run() {
                         try {
                             LoginInfo.Result = LoginInfo.aolanEx.getOICQName("963084062");
+                            LoginInfo.UserPic = LoginInfo.aolanEx.getOICQBitMap("963084062");
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
