@@ -32,8 +32,6 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.zhy:okhttputils:2.6.2'
 
-    //compile 'com.github.youngkaaa:circleview:0.1.0'
-
     compile 'com.lzy.net:okgo:2.1.4'        //可以单独使用，不需要依赖下方的扩展包
     compile 'com.lzy.net:okrx:0.1.2'        //RxJava扩展支持，根据需要添加
     compile 'com.lzy.net:okserver:1.1.3'

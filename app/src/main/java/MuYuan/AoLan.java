@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 public class AoLan {
 
     //原生AysncHttpClient类库封装
+    //已废弃项目
 
     private AsyncHttpClient client = null;
     //private OkHttpClient client = null;
@@ -128,7 +129,7 @@ public class AoLan {
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
                 String Ress = new String(bytes);
-//更新必须数据
+                //更新必须数据
                 UpdataViewState(Ress);
                 //是否为班干部
                 if (Ress.indexOf("注销登录") != -1) {
