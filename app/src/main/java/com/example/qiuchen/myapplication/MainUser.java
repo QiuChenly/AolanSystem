@@ -263,6 +263,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     //TODO:写下点击事件
                                     //似乎不需要写,因为这个只是起到一个查阅的作用.
+
                                 }
                             });
                         }

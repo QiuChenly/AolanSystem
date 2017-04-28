@@ -537,7 +537,7 @@ public class AolanOkHttpEx {
                 "Content-Disposition: form-data; name=\"xp_pjxjdm2\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG--";
         String Cookie = getCookies();
         String r = HttpUntils.submitPostData(new URL(url), Data, Cookie, "multipart/form-data; boundary=----WebKitFormBoundary4MkGaZgofSEEJeRG");
-        if (r.contains("增加记录成功") == true) {
+        if (r.contains("成功") == true) {
             return 1;
         } else {
             LoginInfo.Result = GetSubText(r, "<input name=\"cw\" type=\"hidden\" id=\"cw\" value=\"", "\"", 0);

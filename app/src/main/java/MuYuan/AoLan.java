@@ -65,7 +65,6 @@ public class AoLan {
         });
     }
 
-
     /**
      * 取文本中间方法
      *
