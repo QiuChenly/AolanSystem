@@ -16,7 +16,7 @@
         android:layout_marginBottom="10sp"
         android:backgroundTintMode="src_over"
         android:gravity="center|bottom"
-        android:text="Android牧院信息系统客户端\nVer 1.0.0.3\nAlpha Updata\n\n江苏农牧科技职业学院\n农业工程系\n秋城落叶 设计"
+        android:text="Android牧院信息系统客户端\nVer 1.0.0.4 Build\n\n江苏农牧科技职业学院\n农业工程系\n秋城落叶 设计"
         android:textSize="15sp" />
     <!--android:background="@mipmap/backgroundpicture"-->
 </LinearLayout>

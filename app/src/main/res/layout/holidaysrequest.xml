@@ -1,207 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/MainXML"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/bbbbbackground"
-    android:orientation="vertical">
+              android:id="@+id/MainXML"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@mipmap/bbbbbackground"
+              android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginTop="10sp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:fadeScrollbars="true"
+        android:fillViewport="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|left"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="请 假 类 型 :"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/Request_HolidaysCategory"
-                android:layout_width="200sp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="5sp"
-                android:background="@mipmap/list" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="请 假 时 间 :"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/Request_HolidaysTime"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="5sp"
-                android:background="@mipmap/input"
-                android:gravity="center"
-                android:hint="请输入时间~" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="拟回校时间:"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/Request_BackToSchoolTime"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="5sp"
-                android:background="@mipmap/input"
-                android:gravity="center"
-                android:hint="填回校时间23333~" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="请 假 天 数 :"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/Request_HolidaysDays"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="5sp"
-                android:background="@mipmap/input"
-                android:gravity="center"
-                android:hint="自动计算天数,不要乱填哦~" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="外 出 地 址 :"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/OutAddress"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="5sp"
-                android:background="@mipmap/input"
-                android:gravity="center"
-                android:hint="回家吗少年?" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="10sp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="具体请假原因:"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/Request_Reason"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/input"
-                android:gravity="center"
-                android:hint="在这写下你的狡辩~"
-                android:lines="3" />
-        </LinearLayout>
+                android:gravity="center|left"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请 假 类 型 :"
+                    android:textSize="20sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="联 系 方 式 :"
-                android:textSize="20sp" />
+                <Spinner
+                    android:id="@+id/Request_HolidaysCategory"
+                    android:layout_width="200sp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="5sp"
+                    android:background="@mipmap/list"/>
 
-            <EditText
-                android:id="@+id/Request_ContactInformation"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="5sp"
-                android:background="@mipmap/input"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请 假 时 间 :"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/Request_HolidaysTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="5sp"
+                    android:background="@mipmap/input"
+                    android:gravity="center"
+                    android:hint="请输入时间~"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="拟回校时间:"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/Request_BackToSchoolTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="5sp"
+                    android:background="@mipmap/input"
+                    android:gravity="center"
+                    android:hint="填回校时间23333~"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="请 假 天 数 :"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/Request_HolidaysDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="5sp"
+                    android:background="@mipmap/input"
+                    android:gravity="center"
+                    android:hint="自动计算天数,不要乱填哦~"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="外 出 地 址 :"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/OutAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="5sp"
+                    android:background="@mipmap/input"
+                    android:gravity="center"
+                    android:hint="回家吗少年?"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="具体请假原因:"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/Request_Reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="在这写下你的狡辩~"
+                    android:lines="3"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="联 系 方 式 :"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/Request_ContactInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="5sp"
+                    android:background="@mipmap/input"
+                    android:gravity="center"
+                    android:hint="可选填,输入你的联系方式"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ButtonControl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:hint="可选填,输入你的联系方式" />
-        </LinearLayout>
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/ButtonControl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+                <Button
+                    android:id="@+id/Request_HolidaysOK"
+                    android:layout_width="70sp"
+                    android:layout_height="70sp"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/success"/>
 
-            <Button
-                android:id="@+id/Request_HolidaysOK"
+                <Button
+                    android:id="@+id/Request_HolidaysCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="取  消"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/Request_HolidaysOK_progressBar"
+                style="?android:attr/progressBarStyleInverse"
                 android:layout_width="70sp"
                 android:layout_height="70sp"
                 android:layout_gravity="center"
-                android:background="@mipmap/success" />
-
-            <Button
-                android:id="@+id/Request_HolidaysCancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="取  消"
-                android:visibility="gone" />
+                android:visibility="invisible"/>
         </LinearLayout>
+    </ScrollView>
 
-        <ProgressBar
-            android:id="@+id/Request_HolidaysOK_progressBar"
-            style="?android:attr/progressBarStyleInverse"
-            android:layout_width="70sp"
-            android:layout_height="70sp"
-            android:layout_gravity="center"
-            android:visibility="invisible" />
-    </LinearLayout>
 </LinearLayout>

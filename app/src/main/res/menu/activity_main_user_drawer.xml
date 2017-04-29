@@ -4,32 +4,36 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/myInfo"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="个人信息" />
+            android:icon="@drawable/ic_minfo"
+            android:title="个人信息"/>
         <item
             android:id="@+id/mDaysHoliday"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="日常请假" />
+            android:title="日常请假"/>
         <item
             android:id="@+id/mLongHoliday"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="节假日请假" />
+            android:title="节假日请假"/>
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="隐私保护设置" />
+            android:title="隐私保护设置"/>
     </group>
 
     <item android:title="更多信息">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="秋城落叶" />
+                android:icon="@drawable/ic_appverinfo"
+                android:title="开发者:秋城落叶"/>
+            <item
+                android:id="@+id/buildinfo"
+                android:icon="@drawable/ic_applicationinf"
+                android:title="App版本信息:Ver 1.0.0.4 Build"/>
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Email:963084062@qq.com" />
+                android:title="Email:963084062@qq.com"/>
         </menu>
     </item>
 
