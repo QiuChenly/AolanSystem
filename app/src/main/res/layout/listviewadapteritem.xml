@@ -1,79 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:id="@+id/mAdapterViewBackGround"
+    android:layout_height="wrap_content"
+    android:elevation="20dp"
+    app:cardCornerRadius="10dp"
+    tools:targetApi="lollipop">
 
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="60sp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="@mipmap/listheaderimage"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/mItemIndex"
-                android:layout_width="60sp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="1"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-        </LinearLayout>
-
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@mipmap/listunderimage"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="60sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mItemIndex"
+                    android:layout_width="60sp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="#000000"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/mItem_HolidayBecause"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="请假具体原因(Loading...)"
-                    android:textColor="#000000"
-                    android:textSize="17sp" />
+                    android:layout_marginLeft="15sp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mItem_HolidayBecause"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="请假具体原因(Loading...)"
+                        android:textColor="#000000"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/mItem_HolidayTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="请假时间:(Loading...)"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/mItem_WhereOutSide"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="外出地址:(Loading...)"
+
+                        android:textSize="15sp" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/mItem_HolidayTime"
+                    android:id="@+id/mItemAcceptState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="请假时间:(Loading...)"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/mItem_WhereOutSide"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="外出地址:(Loading...)"
-
-                    android:textSize="15sp" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="4"
+                    android:gravity="center"
+                    android:text="通过"
+                    android:textColor="#000000" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/mItemAcceptState"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="4"
-                android:gravity="center"
-                android:text="通过"
-                android:textColor="#000000" />
         </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    </FrameLayout>
+
+
+</android.support.v7.widget.CardView>

@@ -9,10 +9,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,6 +32,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,9 +49,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 
-import MuYuan.AolanOkHttpEx;
-import MuYuan.LoginInfo;
-import MuYuan.UserData;
+import MuYuan.*;
+import MuYuan.RecyclerViewAdapter.*;
 
 public class MainUser extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ImageView mPersonImage = null;
@@ -55,6 +59,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
     Toolbar toolbar = null;
     long BackTime = 0;
     SharedPreferences Share;
+    Boolean isUpdate=false;
 
     public void initiation() {
         mPersonImage = (ImageView) findViewById(R.id.PersonPic);
@@ -71,12 +76,12 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //如果需要透明导航栏，请加入标记
             //View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE );
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -95,6 +100,9 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
         LoginInfo.Dialog.setCancelable(false);
 
         Share = MainUser.this.getSharedPreferences("QiuChenSet", MODE_PRIVATE);
+
+        ImageView background=(ImageView) findViewById(R.id.mImageBackground);
+        background.setImageBitmap(LoginInfo.BackGroundPic);
     }
 
     @Override
@@ -220,12 +228,12 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
             final LayoutInflater inflater = LayoutInflater.from(MainUser.this);
             final int view = msg.getData().getInt("View");
             LinearLayout i;
-            final LinearLayout linearLayout;
+            final FrameLayout linearLayout;
             switch (view) {
                 case 1:
                     LoginInfo.Dialog.show();
                     i = (LinearLayout) inflater.inflate(R.layout.mfullinfo, null).findViewById(R.id.mFullInfo);
-                    linearLayout = (LinearLayout) findViewById(R.id.mViews);
+                    linearLayout = (FrameLayout) findViewById(R.id.mViews);
                     linearLayout.removeAllViews();
                     linearLayout.addView(i);
                     //需要在View加入后组建创建完成再挂接事件,否则将会闪退
@@ -238,7 +246,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                 t.setText("Error:网络超时...请检查手机网络是否畅通...");
                             } else if (LoginInfo.ErrCode == 1) {
                                 String Leader;
-                                if (LoginInfo.mUserData.ClassLeader == true) {
+                                if (LoginInfo.mUserData.ClassLeader) {
                                     Leader = "班级负责人";
                                 } else {
                                     Leader = "班级群众";
@@ -254,31 +262,32 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                     break;
                 case 2:
                     LoginInfo.Dialog.show();
-                    linearLayout = (LinearLayout) findViewById(R.id.mViews);
+                    linearLayout = (FrameLayout) findViewById(R.id.mViews);
                     linearLayout.removeAllViews();
+                    isUpdate=false;
                     //移除所有控件,并准备加入新的控件
                     i = (LinearLayout) inflater.inflate(R.layout.mdaysview, null).findViewById(R.id.mDaysListViewLinearLayout);
                     linearLayout.addView(i);
-                    final ListView ls = (ListView) findViewById(R.id.mDaysListView);
                     final Handler UpdateView = new Handler() {
                         @Override
                         public void handleMessage(Message msg) {
                             super.handleMessage(msg);
                             //判斷是否為空,若为空则初始化一下防止抛异常
                             if (LoginInfo.mUserData.HolidaysEume == null) {
-                                LoginInfo.mUserData.HolidaysEume = new ArrayList<Map<String, Object>>();
+                                LoginInfo.mUserData.HolidaysEume = new ArrayList<>();
                             }
-                            ls.setAdapter(new SimpleAdapter(MainUser.this, LoginInfo.mUserData.HolidaysEume, R.layout.listviewadapteritem, new String[]{"mItemIndex", "mItem_HolidayBecause",
-                                    "mItem_HolidayTime", "mItem_WhereOutSide", "mItemAcceptState"}, new int[]{R.id.mItemIndex, R.id.mItem_HolidayBecause, R.id.mItem_HolidayTime, R.id
-                                    .mItem_WhereOutSide, R.id.mItemAcceptState}));
-                            ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    //TODO:写下点击事件
-                                    //似乎不需要写,因为这个只是起到一个查阅的作用.
+                            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.m_RecyclerList_ByShortHolidays);
+                            if(!isUpdate) {
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                                recyclerView.addItemDecoration(new mItemDecoration());
+                                recyclerView.setHasFixedSize(false);
+                                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                                isUpdate=true;
+                            }
+                            mAdapterByShortHolidays madapterByShortHolidays = new mAdapterByShortHolidays();
+                            madapterByShortHolidays.setAdapterData(LoginInfo.mUserData.HolidaysEume, getApplicationContext());
 
-                                }
-                            });
+                            recyclerView.setAdapter(madapterByShortHolidays);
                         }
                     };
                     final Handler hand2 = new Handler() {
@@ -289,9 +298,9 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                             spinner.setVisibility(View.GONE);
                             //判斷是否為空,若为空则初始化一下防止抛异常
                             if (LoginInfo.mUserData.ClassMates == null) {
-                                LoginInfo.mUserData.ClassMates = new ArrayList<String>();
+                                LoginInfo.mUserData.ClassMates = new ArrayList<>();
                             }
-                            ArrayAdapter arrayAdapter = new ArrayAdapter<String>(MainUser.this, android.R.layout.simple_spinner_item, LoginInfo.mUserData.ClassMates);
+                            ArrayAdapter arrayAdapter = new ArrayAdapter<>(MainUser.this, android.R.layout.simple_spinner_item, LoginInfo.mUserData.ClassMates);
                             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             spinner.setAdapter(arrayAdapter);
                             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -469,7 +478,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                             super.run();
                                             try {
                                                 //优化性能,加载过一次就不需要再次加载数据
-                                                if (LoginInfo.mUserData.CategoryHolidays.isEmpty() == true) {
+                                                if (LoginInfo.mUserData.CategoryHolidays.isEmpty()) {
                                                     LoginInfo.aolanEx.Init_Holidays_xzdm();
                                                     while (LoginInfo.ErrCode == 0) {
                                                         try {
@@ -527,10 +536,10 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
      * @param inflater 默认局部参数,可不传自己定义
      */
     private void InitLongHolidaysView(final LayoutInflater inflater) {
-        LoginInfo.mUserData.HolidaysEume = new ArrayList<Map<String, Object>>();
+        LoginInfo.mUserData.HolidaysEume = new ArrayList<Map<String, String>>();
         LoginInfo.mUserData.ClassMates = new ArrayList<>();
         LoginInfo.Dialog.show();
-        final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mViews);
+        final FrameLayout linearLayout = (FrameLayout) findViewById(R.id.mViews);
         linearLayout.removeAllViews();
         //移除所有控件,并准备加入新的控件
         LinearLayout i = (LinearLayout) inflater.inflate(R.layout.holidays_long, null).findViewById(R.id.holidasLong);
@@ -546,11 +555,25 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                 super.handleMessage(msg);
                 //判斷是否為空,若为空则初始化一下防止抛异常
                 if (LoginInfo.mUserData.HolidaysEume == null) {
-                    LoginInfo.mUserData.HolidaysEume = new ArrayList<Map<String, Object>>();
+                    LoginInfo.mUserData.HolidaysEume = new ArrayList<>();
                 }
-                ((ListView) findViewById(R.id.mDaysListView_holidays_long)).setAdapter(new SimpleAdapter(MainUser
-                        .this, LoginInfo.mUserData.HolidaysEume, R.layout.listviewadapteritem, new String[]{"mItemIndex", "mItem_HolidayBecause", "mItem_HolidayTime", "mItem_WhereOutSide",
-                        "mItemAcceptState"}, new int[]{R.id.mItemIndex, R.id.mItem_HolidayBecause, R.id.mItem_HolidayTime, R.id.mItem_WhereOutSide, R.id.mItemAcceptState}));
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.m_RecyclerList_ByLongHolidays);
+                //实例化Adapter
+                mAdapterByLongHolidaysInfo mLongHolidaysAdapter = new mAdapterByLongHolidaysInfo();
+                //设置Adapter的数据
+                mLongHolidaysAdapter.setmList(LoginInfo.mUserData.HolidaysEume, MainUser.this);
+
+                //性能优化
+                recyclerView.setHasFixedSize(false);
+                //设置布局 线性
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainUser.this));
+                //设置子Item边距
+                recyclerView.addItemDecoration(new mItemDecoration());
+                //设置效果
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                //设置适配器
+                recyclerView.setAdapter(mLongHolidaysAdapter);
+
                 //下面开始设置Spiner控件
                 Spinner spinner = (Spinner) findViewById(R.id.mStudentSelect_holidays_long);
                 spinner.setVisibility(View.GONE);
@@ -562,11 +585,13 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                         super.handleMessage(msg);
                         //判斷是否為空,若为空则初始化一下防止抛异常
                         if (LoginInfo.mUserData.HolidaysEume == null) {
-                            LoginInfo.mUserData.HolidaysEume = new ArrayList<Map<String, Object>>();
+                            LoginInfo.mUserData.HolidaysEume = new ArrayList<Map<String, String>>();
                         }
-                        ((ListView) findViewById(R.id.mDaysListView_holidays_long)).setAdapter(new SimpleAdapter(MainUser
-                                .this, LoginInfo.mUserData.HolidaysEume, R.layout.listviewadapteritem, new String[]{"mItemIndex", "mItem_HolidayBecause", "mItem_HolidayTime", "mItem_WhereOutSide",
-                                "mItemAcceptState"}, new int[]{R.id.mItemIndex, R.id.mItem_HolidayBecause, R.id.mItem_HolidayTime, R.id.mItem_WhereOutSide, R.id.mItemAcceptState}));
+                        //实例化Adapter
+                        mAdapterByLongHolidaysInfo mLongHolidaysAdapter = new mAdapterByLongHolidaysInfo();
+                        //设置Adapter的数据
+                        mLongHolidaysAdapter.setmList(LoginInfo.mUserData.HolidaysEume, MainUser.this);
+                        ((RecyclerView) findViewById(R.id.m_RecyclerList_ByLongHolidays)).setAdapter(mLongHolidaysAdapter);
                         if (Share.getBoolean("SafeInfomation", false)) {
                             ((EditText) findViewById(R.id.long_ClassMatesContactInfomation)).setText("家庭电话:已保护个人隐私.\n个人电话:已保护个人隐私.");
                         } else {
@@ -787,7 +812,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
      * @param inflater 默认参数
      */
     private void InitInfomationSafe(final LayoutInflater inflater) {
-        final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mViews);
+        final FrameLayout linearLayout = (FrameLayout) findViewById(R.id.mViews);
         linearLayout.removeAllViews();
         //移除所有控件,并准备加入新的控件
         LinearLayout i = (LinearLayout) inflater.inflate(R.layout.infomationsetting, null).findViewById(R.id.InfomationSetting);
@@ -831,7 +856,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                mPersonName.setText("昵称:"+LoginInfo.Result + "(" + LoginInfo.mUserData.Name + ")");
+                mPersonName.setText("昵称:" + LoginInfo.Result + "(" + LoginInfo.mUserData.Name + ")");
                 mPersonImage.setImageBitmap(LoginInfo.UserPic);
             }
         };

@@ -1,8 +1,13 @@
 package MuYuan;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -371,4 +376,18 @@ public class HttpUtils {
         return   getImageBitmap(s);
     }
 
+    public static Bitmap mBlurImage(Bitmap bitmap, Context thisContext){
+        Bitmap TempBitmap=Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        RenderScript renderScript=RenderScript.create(thisContext);
+        ScriptIntrinsicBlur scriptIntrinsicBlur=ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript));
+        Allocation allocationIn=Allocation.createFromBitmap(renderScript,bitmap);
+        Allocation allocationOut=Allocation.createFromBitmap(renderScript,TempBitmap);
+        scriptIntrinsicBlur.setRadius(24f);
+        scriptIntrinsicBlur.setInput(allocationIn);
+        scriptIntrinsicBlur.forEach(allocationOut);
+        allocationOut.copyTo(TempBitmap);
+        bitmap.recycle();
+        renderScript.destroy();
+        return TempBitmap;
+    }
 }

@@ -3,8 +3,8 @@
               android:id="@+id/mDaysListViewLinearLayout"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@mipmap/bbbbbackground"
               android:orientation="vertical">
+
 
     <LinearLayout
 
@@ -14,11 +14,12 @@
 
         <TextView
             android:id="@+id/PleaseChoiceInfo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
-            android:gravity="center"
-            android:text="请从下方选择:">
+            android:background="@drawable/m_alphaback"   android:gravity="center"
+            android:text="请触摸下方选择:">
 
         </TextView>
 
@@ -26,14 +27,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/mStudentSelect"
                 android:layout_width="210sp"
-                android:layout_height="40sp"
+                android:layout_height="50sp"
                 android:layout_gravity="center"
-                android:background="@mipmap/list"
+                android:background="@drawable/m_alphaback"
                 android:gravity="center">
 
             </Spinner>
@@ -49,22 +51,10 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:layout_margin="5dp"
+            android:id="@+id/m_RecyclerList_ByShortHolidays"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ListView
-                android:id="@+id/mDaysListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginTop="5sp"
-                android:background="@mipmap/listviebackground"/>
-
-
-        </LinearLayout>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </LinearLayout>

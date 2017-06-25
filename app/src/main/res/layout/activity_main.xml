@@ -1,91 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@mipmap/backggggg"
-              tools:context="com.example.qiuchen.myapplication.MainActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.qiuchen.myapplication.MainActivity">
+
+    <ImageView
+        android:id="@+id/mLoginBackGround"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500sp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@mipmap/bbbbbackground"
+        android:layout_margin="15dp"
         android:gravity="center"
+        android:background="@drawable/m_alphaback"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/login_top"
-            />
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/textView3"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="账号:"
-                android:textSize="20sp"
+                android:layout_height="55dp"
+                android:gravity="bottom"
+                android:elevation="10dp"
+                android:layout_margin="10dp">
 
-                />
+                <AutoCompleteTextView
+                    android:id="@+id/mUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/m_editbox"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:hint="请输入账号"
+                    android:text="" />
 
-            <EditText
-                android:id="@+id/mUser"
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="35sp"
-                android:layout_marginLeft="10sp"
-                android:layout_weight="2"
-                android:background="@mipmap/input"
+                android:layout_height="55dp"
+                android:gravity="bottom"
+                android:elevation="10dp"
+                android:layout_margin="10dp">
 
-                android:ems="10"
-                android:gravity="center"
-                android:hint="请输入账号"
-                android:inputType="textPersonName"
-                android:text=""/>
-        </LinearLayout>
+                <AutoCompleteTextView
+                    android:id="@+id/mPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/m_editbox"
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:hint="请输入密码"
+                    android:text="" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5sp"
-            android:orientation="horizontal">
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="right"
-
-                android:text="密码:"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="31dp"/>
-
-            <EditText
-                android:id="@+id/mPass"
-                android:layout_width="match_parent"
-                android:layout_height="35sp"
-                android:layout_marginLeft="10sp"
-                android:layout_weight="2"
-                android:background="@mipmap/input"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="请输入密码"
-                android:inputType="textPassword"
-                android:text=""/>
         </LinearLayout>
 
         <Button
@@ -94,9 +73,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5sp"
-            android:background="@mipmap/base"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/m_button"
             android:text="登    录"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <ProgressBar
             android:id="@+id/mLoginProgressBar"
@@ -104,6 +84,7 @@
             android:layout_width="70sp"
             android:layout_height="70sp"
             android:layout_gravity="center"
-            android:visibility="invisible"/>
+            android:layout_marginBottom="10dp"
+            android:visibility="invisible" />
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

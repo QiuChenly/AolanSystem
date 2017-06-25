@@ -37,7 +37,7 @@ public class UserData {
     public String y_ksh;//考生号
     public String y_hkxzdm;//户口性质
     public List<String> ClassMates;//同班同学数据集合
-    public List<Map<String, Object>> HolidaysEume;//請假記錄
+    public List<Map<String, String>> HolidaysEume;//請假記錄
     public int ItemSelection = 0;
     public String Password;
     public String UserNum;

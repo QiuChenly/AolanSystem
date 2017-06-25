@@ -2,21 +2,31 @@ package com.example.qiuchen.myapplication;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
 
+import java.io.IOException;
+
+import MuYuan.HttpUtils;
 import MuYuan.LoginInfo;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,22 +41,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //如果需要透明导航栏，请加入标记
 
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE );
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
-
-
         OkGo.init(getApplication());//TM这....
+
         btn = (Button) findViewById(R.id.mLogin);
         mUser = (EditText) findViewById(R.id.mUser);
         mPass = (EditText) findViewById(R.id.mPass);
         mLoginBar = (ProgressBar) findViewById(R.id.mLoginProgressBar);
 
-        Share = MainActivity.this.getSharedPreferences("QiuChenSet", MODE_PRIVATE);
+        Share = this.getSharedPreferences("QiuChenSet", MODE_PRIVATE);
         String Temp;
         Temp = Share.getString("user", "");
         mUser.setText(Temp);
@@ -136,12 +146,54 @@ public class MainActivity extends AppCompatActivity {
                 }.start();
             }
         });
-        if (mUser.getText().toString().length() > 0 && mPass.getText().toString().length() > 0) {
-            Toast.makeText(MainActivity.this,
-                    "自动登录中...",
-                    Toast.LENGTH_SHORT
-            ).show();
-            btn.callOnClick();
+
+        if (LoginInfo.BackGroundPic == null) {
+            new Thread() {
+                @Override
+                public void run() {
+                    mLoginBar.setVisibility(View.VISIBLE);
+                    btn.setVisibility(View.GONE);
+                    try {
+                        Bitmap mSave = HttpUtils.getBingImage();
+                        LoginInfo.BackGroundPic = HttpUtils.mBlurImage(mSave, getApplicationContext());
+
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ImageView imageView = (ImageView) findViewById(R.id.mLoginBackGround);
+                                imageView.setImageBitmap(LoginInfo.BackGroundPic);
+                                mLoginBar.setVisibility(View.GONE);
+                                btn.setVisibility(View.VISIBLE);
+                                if (mUser.getText().toString().length() > 0 && mPass.getText().toString().length() > 0) {
+                                    Toast.makeText(MainActivity.this,
+                                            "自动登录中...",
+                                            Toast.LENGTH_SHORT
+                                    ).show();
+                                    btn.callOnClick();
+                                }
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        } else {
+            ImageView imageView = (ImageView) findViewById(R.id.mLoginBackGround);
+            imageView.setImageBitmap(LoginInfo.BackGroundPic);
+            if (mUser.getText().toString().length() > 0 && mPass.getText().toString().length() > 0) {
+                Toast.makeText(MainActivity.this,
+                        "自动登录中...",
+                        Toast.LENGTH_SHORT
+                ).show();
+                btn.callOnClick();
+            }
         }
+
+
+
+
+
+
     }
 }

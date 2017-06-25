@@ -5,20 +5,19 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bbbbbackground"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <include
         layout="@layout/app_bar_main_user"
         android:layout_width="match_parent"
-
         android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:background="#b7ffffff"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main_user"

@@ -24,6 +24,8 @@ public class LoginInfo {
     public static Boolean IsInitChecked = false;
     public static Bitmap UserPic;
 
+    public static Bitmap BackGroundPic;
+
     /**
      * 计算天数,重写js算法
      *

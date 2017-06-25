@@ -378,8 +378,8 @@ public class AolanOkHttp {
      * @param string 网页数据
      * @return 返回适配好的ListMap
      */
-    public List<Map<String, Object>> UpdataHolidaysEume(String string) {
-        List<Map<String, Object>> mList1 = new ArrayList<Map<String, Object>>();
+    public List<Map<String, String>> UpdataHolidaysEume(String string) {
+        List<Map<String, String>> mList1 = new ArrayList<Map<String, String>>();
         Pattern p = Pattern.compile
                 ("<span>(.*?)</span>[\\s]*" +
                         "</td><td nowrap=\"nowrap\">" +
@@ -417,11 +417,11 @@ public class AolanOkHttp {
             i++;
         }
         //实现倒序排列,让最近的数据优先显示
-        List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
+        List<Map<String, String>> mList = new ArrayList<Map<String, String>>();
         Log.d("QiuChen", String.valueOf(mList1.size()));
         for (int a = 1; a <= mList1.size(); a++) {
-            Map<String, Object> map = mList1.get(mList1.size() - a);
-            map.put("mItemIndex", a);
+            Map<String, String> map = mList1.get(mList1.size() - a);
+            map.put("mItemIndex", String.valueOf(a));
             mList.add(map);
         }
         return mList;
@@ -438,13 +438,13 @@ public class AolanOkHttp {
      * @param mItemAcceptState     是否同意
      * @return 封装好的Map数据
      */
-    private Map<String, Object> HashMapEx(
+    private Map<String, String> HashMapEx(
             String Index,
             String mItem_HolidayBecause,
             String mItem_HolidayTime,
             String mItem_WhereOutSide,
             String mItemAcceptState) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("mItemIndex", Index);
         map.put("mItem_HolidayBecause", mItem_HolidayBecause);
         map.put("mItem_HolidayTime", mItem_HolidayTime);

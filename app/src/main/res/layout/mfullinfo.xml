@@ -3,6 +3,7 @@
     android:id="@+id/mFullInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
     <TextView
@@ -10,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="5sp"
+        android:background="#66ffffff"
         android:gravity="center"
         android:text="Loading..."
         android:textSize="20sp" />
