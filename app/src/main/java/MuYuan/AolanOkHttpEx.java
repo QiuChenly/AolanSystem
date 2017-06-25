@@ -46,7 +46,6 @@ public class AolanOkHttpEx {
 
     public String _viewstate = "";
     public String _viewStategenerator = "";
-    MemoryCookieStore memoryCookieStore = new MemoryCookieStore ();
     private PersistentCookieStore CookieStore = new PersistentCookieStore ();
     Context ct = null;
 
@@ -344,9 +343,9 @@ public class AolanOkHttpEx {
                 "\n" + "------WebKitFormBoundarymAMsOSk5Z6IB3N2f--";
         datas = datas.replace ("{__VIEWSTATE}", _viewstate).replace ("{__VIEWSTATEGENERATOR}", _viewStategenerator);
         String Cookie = getCookies ();
-        String r = HttpUntils.submitPostData (new URL (url), datas, Cookie, "multipart/form-data; boundary=----WebKitFormBoundarymAMsOSk5Z6IB3N2f");
-        UpdataViewState (r);
-        LoginInfo.mUserData.HolidaysEume = UpdataHolidaysEume (r);
+        ResponseData r = HttpUtils.POST (url, datas, Cookie, "multipart/form-data; boundary=----WebKitFormBoundarymAMsOSk5Z6IB3N2f");
+        UpdataViewState (r.ResponseText);
+        LoginInfo.mUserData.HolidaysEume = UpdataHolidaysEume (r.ResponseText);
     }
 
     /**
@@ -537,11 +536,11 @@ public class AolanOkHttpEx {
                 "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" + "Content-Disposition: form-data; name=\"xp_ipbz\"\n" + "\n" + "1\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG\n" +
                 "Content-Disposition: form-data; name=\"xp_pjxjdm2\"\n" + "\n" + "\n" + "------WebKitFormBoundary4MkGaZgofSEEJeRG--";
         String Cookie = getCookies ();
-        String r = HttpUntils.submitPostData (new URL (url), Data, Cookie, "multipart/form-data; boundary=----WebKitFormBoundary4MkGaZgofSEEJeRG");
-        if (r.indexOf ("增加记录成功") != - 1) {
+        ResponseData r = HttpUtils.POST (url, Data, Cookie, "multipart/form-data; boundary=----WebKitFormBoundary4MkGaZgofSEEJeRG");
+        if (r.ResponseText.contains("增加记录成功")) {
             return 1;
         } else {
-            LoginInfo.Result = GetSubText (r, "<input name=\"cw\" type=\"hidden\" id=\"cw\" value=\"", "\"", 0);
+            LoginInfo.Result = GetSubText (r.ResponseText , "<input name=\"cw\" type=\"hidden\" id=\"cw\" value=\"", "\"", 0);
             return - 1;
         }
     }
@@ -639,11 +638,11 @@ public class AolanOkHttpEx {
                 "%2CCP9" + "" + "" + "" + "" + "" + "" + "%2CCPZF%2C&st_xq=" + LoginInfo.mUserData.Term + "&st_nd=&mc=&smbz=&fjmf=&psrc=&pa=&pb=&pc=&pd=&pe=&pf=&msie=1&txxmxs=" + EncodeStr (ID + " " +
                 "" + "" + Name) + "&tkey=jjrdm&tkey4=&xp_pmc=jjr&xp_pval=&xp_plx=&xp_pkm=JJRDM&xp_pzd=qxlbdm&xp_pjxjdm=&xp_ipbz=1&xp_pjxjdm2=";
         String Cookie = getCookies ();
-        String r = HttpUntils.submitPostData (new URL (url), Datas, Cookie, "application/x-www-form-urlencoded");
-        LoginInfo.mUserData.HolidaysEume = getViewByHolidaysLongInfomation (r);
-        LoginInfo.mUserData.RoomsID = GetSubText (r, "<span id=\"l_sy_jbgr_sshm\">", "</span>", 0);
-        LoginInfo.mUserData.HousePhoneNum = GetSubText (r, "<span id=\"l_sy_jbgr_jtdh\">", "</span>", 0);
-        LoginInfo.mUserData.MySelfPhoneNum = GetSubText (r, "<span id=\"l_sy_jbgr_cell\">", "</span>", 0);
+        ResponseData r = HttpUtils.POST (url, Datas, Cookie, "application/x-www-form-urlencoded");
+        LoginInfo.mUserData.HolidaysEume = getViewByHolidaysLongInfomation (r.ResponseText );
+        LoginInfo.mUserData.RoomsID = GetSubText (r.ResponseText , "<span id=\"l_sy_jbgr_sshm\">", "</span>", 0);
+        LoginInfo.mUserData.HousePhoneNum = GetSubText (r.ResponseText , "<span id=\"l_sy_jbgr_jtdh\">", "</span>", 0);
+        LoginInfo.mUserData.MySelfPhoneNum = GetSubText (r.ResponseText , "<span id=\"l_sy_jbgr_cell\">", "</span>", 0);
         LoginInfo.ErrCode = 1;
     }
 
@@ -678,9 +677,9 @@ public class AolanOkHttpEx {
                     "&mh=&tj=&pdm=&pmc=qxlb&pdm2=&pmc2=&pjxjdm=&pjxjdm2=&pval=&plx=&pkm=QXLBDM&pzd=wcdz&xzbz=0&ipbz=1&cwbz=&xz1v=";
         }
         String Cookie = getCookies ();
-        String r = HttpUntils.submitPostData (new URL (url), Data, Cookie, "application/x-www-form-urlencoded");
+        ResponseData r = HttpUtils.POST (url, Data, Cookie, "application/x-www-form-urlencoded");
         Pattern p = Pattern.compile ("<span id=\".*?\">(.*?)[\\s]*</span>[\\s]*</font></td><td nowrap=\"nowrap\"><font color=\"Black\">[\\s]*<span id=\".*?\">(.*?)[\\s]*</span>");
-        Matcher m = p.matcher (r);
+        Matcher m = p.matcher (r.ResponseText);
         while (m.find ()) {
             String Line = m.group (1) + "|" + m.group (2);
             if (Category == 1) {
@@ -745,28 +744,28 @@ public class AolanOkHttpEx {
                 "xzbz=&pkey=04&pkey4=&xs_bj=&bdbz=&cw=&hjzd=%2CCP10%2CCP1%2CCP2%2CCP3%2CCP4%2CC" + "P5%2CCP6%2CCP7%2CCP8%2CCP9%2CCPZF%2C&st_xq=" + LoginInfo.mUserData.Term +
                 "&st_nd=&mc=&smbz=&fjmf=&psrc=&pa=&pb=&pc=&pd=&pe=&pf=&msie=1&txxmxs=" + LoginInfo.mUserData.UserNum + EncodeStr (" " + LoginInfo.mUserData.Name) +
                 "&tkey=jjrdm&tkey4=&xp_pmc=qxlb&xp_pval=&xp_plx=&xp_pkm=QXLBDM&xp_pzd=wcdz" + "&xp_pjxjdm=&xp_ipbz=1&xp_pjxjdm2=";
-        String Result = HttpUntils.submitPostData (new URL (url), Data, getCookies (), "application/x-www-form-urlencoded");
-        System.out.print (Result);
+        ResponseData Result = HttpUtils.POST (url, Data, getCookies (), "application/x-www-form-urlencoded");
+        System.out.print (Result.ResponseText);
         if (Result == null) {
             return 3;
         }
-        if (Result.indexOf ("增加记录成功") != - 1) {
+        if (Result.ResponseText.contains("增加记录成功")) {
             return 1;
         } else {
-            LoginInfo.Result = GetSubText (Result, "<input name=\"cw\" type=\"hidden\" id=\"cw\" value=\"", "\"", 0);
+            LoginInfo.Result = GetSubText (Result.ResponseText, "<input name=\"cw\" type=\"hidden\" id=\"cw\" value=\"", "\"", 0);
             return - 1;
         }
     }
 
     public String getOICQName (String Uin) throws IOException {
         String url = "http://users.qzone.qq.com/fcg-bin/cgi_get_portrait.fcg?uins=" + Uin;
-        url = HttpUntils.getURLResponse (url);
+        url = HttpUtils.Get_s (url);
         url = GetSubText (url, "-1,0,0,0,\"", "\"", 0);
         return url;
     }
 
     public Bitmap getOICQBitMap (String Uin) {
         String url = "http://q2.qlogo.cn/headimg_dl?bs=" + Uin + "&dst_uin=" + Uin + "&dst_uin=" + Uin + "&dst_uin=" + Uin + "&spec=100&url_enc=0&referer=bu_interface&term_type=PC";
-        return HttpUntils.getImageBitmap (url);
+        return HttpUtils.getImageBitmap (url);
     }
 }
