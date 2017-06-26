@@ -102,7 +102,7 @@
                     android:id="@+id/long_holidays"
                     android:layout_width="200sp"
                     android:layout_height="45dp"
-                    android:background="@mipmap/list"/>
+                />
 
             </LinearLayout>
 
@@ -122,7 +122,7 @@
                     android:id="@+id/long_holidaysToGo"
                     android:layout_width="200sp"
                     android:layout_height="45dp"
-                    android:background="@mipmap/list"/>
+               />
 
             </LinearLayout>
 

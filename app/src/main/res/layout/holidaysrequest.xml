@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/MainXML"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:id="@+id/MainXML"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/m_alphaback"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fadeScrollbars="true"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,14 +30,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="请 假 类 型 :"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <Spinner
                     android:id="@+id/Request_HolidaysCategory"
                     android:layout_width="200sp"
                     android:layout_height="45dp"
-                    android:layout_marginLeft="5sp"
-                    android:background="@mipmap/list"/>
+                    android:layout_marginLeft="5sp" />
 
             </LinearLayout>
 
@@ -50,16 +49,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="请 假 时 间 :"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/Request_HolidaysTime"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="5sp"
-                    android:background="@mipmap/input"
+                    android:background="@drawable/m_editbox"
                     android:gravity="center"
-                    android:hint="请输入时间~"/>
+                    android:hint="请输入时间~" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,16 +72,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="拟回校时间:"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/Request_BackToSchoolTime"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="5sp"
-                    android:background="@mipmap/input"
+                    android:background="@drawable/m_editbox"
                     android:gravity="center"
-                    android:hint="填回校时间23333~"/>
+                    android:hint="填回校时间23333~" />
             </LinearLayout>
 
             <LinearLayout
@@ -96,16 +95,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="请 假 天 数 :"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/Request_HolidaysDays"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="5sp"
-                    android:background="@mipmap/input"
+                    android:background="@drawable/m_editbox"
                     android:gravity="center"
-                    android:hint="自动计算天数,不要乱填哦~"/>
+                    android:hint="自动计算天数,不要乱填哦~" />
             </LinearLayout>
 
             <LinearLayout
@@ -119,16 +118,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="外 出 地 址 :"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/OutAddress"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="5sp"
-                    android:background="@mipmap/input"
+                    android:background="@drawable/m_editbox"
                     android:gravity="center"
-                    android:hint="回家吗少年?"/>
+                    android:hint="回家吗少年?" />
             </LinearLayout>
 
             <LinearLayout
@@ -142,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="具体请假原因:"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/Request_Reason"
@@ -150,7 +149,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="在这写下你的狡辩~"
-                    android:lines="3"/>
+                    android:background="@drawable/m_editbox"
+                    android:lines="3" />
             </LinearLayout>
 
             <LinearLayout
@@ -164,16 +164,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="联 系 方 式 :"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/Request_ContactInformation"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="5sp"
-                    android:background="@mipmap/input"
+                    android:background="@drawable/m_editbox"
                     android:gravity="center"
-                    android:hint="可选填,输入你的联系方式"/>
+                    android:hint="可选填,输入你的联系方式" />
             </LinearLayout>
 
             <LinearLayout
@@ -189,7 +189,7 @@
                     android:layout_width="70sp"
                     android:layout_height="70sp"
                     android:layout_gravity="center"
-                    android:background="@mipmap/success"/>
+                    android:background="@mipmap/success" />
 
                 <Button
                     android:id="@+id/Request_HolidaysCancel"
@@ -198,7 +198,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="取  消"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
 
             <ProgressBar
@@ -207,7 +207,7 @@
                 android:layout_width="70sp"
                 android:layout_height="70sp"
                 android:layout_gravity="center"
-                android:visibility="invisible"/>
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 

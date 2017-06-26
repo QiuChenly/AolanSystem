@@ -3,6 +3,9 @@ package com.example.qiuchen.myapplication;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.nfc.cardemulation.HostNfcFService;
 import android.os.Build;
 import android.os.Bundle;
@@ -92,7 +95,6 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);//不设置统一颜色,实现彩色图标
         navigationView.setNavigationItemSelectedListener(this);
-
 
         LoginInfo.Dialog = new ProgressDialog(MainUser.this);
         LoginInfo.Dialog.setTitle("页面加载中...");

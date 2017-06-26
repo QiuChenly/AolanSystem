@@ -52,11 +52,14 @@ public class mAdapterByShortHolidays extends RecyclerView.Adapter<mAdapterByShor
             case "不通过":
                 holder.mAdapterViewBackGround.setCardBackgroundColor(Color.argb(200,255,0,0));
                 break;
-            case "等待通过":
-                holder.mAdapterViewBackGround.setCardBackgroundColor(Color.argb(200,255,64,64));
+            case "等待处理":
+                holder.mAdapterViewBackGround.setCardBackgroundColor(Color.argb(200,255,0,0));
+                break;
+            case "退回":
+                holder.mAdapterViewBackGround.setCardBackgroundColor(Color.argb(200,255,0,0));
                 break;
             default:
-                holder.mAdapterViewBackGround.setCardBackgroundColor(Color.argb(170,255,255,255));
+                holder.mAdapterViewBackGround.setCardBackgroundColor(Color.argb(150,255,255,255));
                 break;
         }
 
