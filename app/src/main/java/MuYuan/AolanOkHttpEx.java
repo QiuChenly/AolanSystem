@@ -369,10 +369,10 @@ public class AolanOkHttpEx {
         int i = 0;//重设计数器
         while (m.find()) {
             String Temp;
-            if(m.group(9).length()<=0){
-                Temp="等待处理";
-            }else{
-               Temp= m.group(9);
+            if (m.group(9).length() <= 0) {
+                Temp = "等待处理";
+            } else {
+                Temp = m.group(9);
             }
             mList1.add(
                     HashMapEx(
@@ -474,10 +474,10 @@ public class AolanOkHttpEx {
      */
     public int Request_Holidays(Map<String, String> data) throws IOException {
         String url = "http://alst.jsahvc.edu.cn/txxm/rsbulid/r_3_3_st_xsqj.aspx?xq=" + LoginInfo.mUserData.Term + "&nd=" + LoginInfo.mUserData.nd + "&msie=1";
-        UpdataViewState(HttpUtils.Get(url,getCookies()));
-        Calendar calendar=Calendar.getInstance();
-        String pkey=String.valueOf(calendar.get(Calendar.YEAR))+"-"+String.valueOf(calendar.get(Calendar.MONTH)+1)+"-"+String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-        String Data="------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
+        UpdataViewState(HttpUtils.Get(url, getCookies()));
+        Calendar calendar = Calendar.getInstance();
+        String pkey = String.valueOf(calendar.get(Calendar.YEAR)) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        String Data = "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"__EVENTTARGET\"\n" +
                 "\n" +
                 "dcbc\n" +
@@ -488,11 +488,11 @@ public class AolanOkHttpEx {
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"__VIEWSTATE\"\n" +
                 "\n" +
-                _viewstate+"\n" +
+                _viewstate + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"__VIEWSTATEGENERATOR\"\n" +
                 "\n" +
-                _viewStategenerator+"\n" +
+                _viewStategenerator + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"__VIEWSTATEENCRYPTED\"\n" +
                 "\n" +
@@ -500,19 +500,19 @@ public class AolanOkHttpEx {
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"qjsj\"\n" +
                 "\n" +
-                data.get("Request_Time")+"\n" +
+                data.get("Request_Time") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"qjsy\"\n" +
                 "\n" +
-                data.get("Request_Categroy_str")+"\n" +
+                data.get("Request_Categroy_str") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"qjsydm\"\n" +
                 "\n" +
-                data.get("Request_Categroy_int")+"\n" +
+                data.get("Request_Categroy_int") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"qjjtyy\"\n" +
                 "\n" +
-                data.get("Request_Reason") +"\n" +
+                data.get("Request_Reason") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"File1\"; filename=\"\"\n" +
                 "Content-Type: application/octet-stream\n" +
@@ -525,11 +525,11 @@ public class AolanOkHttpEx {
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"wcdz\"\n" +
                 "\n" +
-                data.get("Request_OutAddress")+"\n" +
+                data.get("Request_OutAddress") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"jzxmlxfs\"\n" +
                 "\n" +
-                data.get("Request_ContactInformation")+ "\n" +
+                data.get("Request_ContactInformation") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"nhxsj\"\n" +
                 "\n" +
@@ -545,7 +545,7 @@ public class AolanOkHttpEx {
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"czsj\"\n" +
                 "\n" +
-                data.get("Request_CaoZhuoTime")+"\n" +
+                data.get("Request_CaoZhuoTime") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"fdyspyj\"\n" +
                 "\n" +
@@ -613,19 +613,19 @@ public class AolanOkHttpEx {
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"xdm\"\n" +
                 "\n" +
-                LoginInfo.mUserData.xdm+"\n" +
+                LoginInfo.mUserData.xdm + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"bjhm\"\n" +
                 "\n" +
-                LoginInfo.mUserData.ClassName+"\n" +
+                LoginInfo.mUserData.ClassName + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"xh\"\n" +
                 "\n" +
-                data.get("StudentID") +"\n" +
+                data.get("StudentID") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"xm\"\n" +
                 "\n" +
-                data.get("StudentName") +"\n" +
+                data.get("StudentName") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"qx_r\"\n" +
                 "\n" +
@@ -673,7 +673,7 @@ public class AolanOkHttpEx {
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"pkey\"\n" +
                 "\n" +
-                pkey+"\n" +
+                pkey + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"pkey4\"\n" +
                 "\n" +
@@ -697,7 +697,7 @@ public class AolanOkHttpEx {
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"st_xq\"\n" +
                 "\n" +
-                LoginInfo.mUserData.Term+"\n" +
+                LoginInfo.mUserData.Term + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"st_nd\"\n" +
                 "\n" +
@@ -749,7 +749,7 @@ public class AolanOkHttpEx {
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"txxmxs\"\n" +
                 "\n" +
-                data.get("StudentID") + " " + data.get("StudentName") +"\n" +
+                data.get("StudentID") + " " + data.get("StudentName") + "\n" +
                 "------WebKitFormBoundarynenXgjYBUoeNphnw\n" +
                 "Content-Disposition: form-data; name=\"tkey\"\n" +
                 "\n" +
@@ -939,10 +939,10 @@ public class AolanOkHttpEx {
         while (m.find()) {
             String Line = m.group(1) + "|" + m.group(2);
             if (Category == 1) {
-                LoginInfo.mUserData.CategoryHolidays_Long.add(Line);
+                UserData.CategoryHolidays_Long.add(Line);
                 System.out.print(Line);
             } else {
-                LoginInfo.mUserData.WithOutCategory.add(Line);
+                UserData.WithOutCategory.add(Line);
             }
         }
         LoginInfo.ErrCode = 1;
@@ -962,13 +962,6 @@ public class AolanOkHttpEx {
         Matcher m = p.matcher(str);
         int i = 0;
         while (m.find()) {
-            //String res = "节假日:" + m.group(1)
-            //        + "去向类别:" + m.group(2)
-            //        + "外出地址:" + m.group(3)
-            //        + "离校日期:" + m.group(4)
-            //        + "拟回校日期:" + m.group(5)
-            //        + "返校日期:" + m.group(6)
-            //        + "备注:" + m.group(7);
             mlist.add(HashMapEx(String.valueOf(i), "节假日:" + m.group(1) + " 去向类别:" + m.group(2), "离校日期:" + m.group(4), "外出地址:" + CheckNull(m.group(3)), ""));
         }
         return listUnder(mlist);
@@ -1002,9 +995,6 @@ public class AolanOkHttpEx {
                 "&tkey=jjrdm&tkey4=&xp_pmc=qxlb&xp_pval=&xp_plx=&xp_pkm=QXLBDM&xp_pzd=wcdz" + "&xp_pjxjdm=&xp_ipbz=1&xp_pjxjdm2=";
         ResponseData Result = HttpUtils.POST(url, Data, getCookies(), "application/x-www-form-urlencoded");
         System.out.print(Result.ResponseText);
-        if (Result == null) {
-            return 3;
-        }
         if (Result.ResponseText.contains("增加记录成功")) {
             return 1;
         } else {
@@ -1021,7 +1011,45 @@ public class AolanOkHttpEx {
     }
 
     public Bitmap getOICQBitMap(String Uin) {
-        String url = "http://q2.qlogo.cn/headimg_dl?bs=" + Uin + "&dst_uin=" + Uin + "&dst_uin=" + Uin + "&dst_uin=" + Uin + "&spec=100&url_enc=0&referer=bu_interface&term_type=PC";
+        String url = "http://q2.qlogo.cn/headimg_dl?bs=" + Uin + "&dst_uin=" + Uin + "&dst_uin=" +
+                Uin + "&dst_uin=" + Uin + "&spec=100&url_enc=0&referer=bu_interface&term_type=PC";
         return HttpUtils.getImageBitmap(url);
     }
+
+    public List<String> getDormChangeItem() throws IOException {
+        String Url = "http://alst.jsahvc.edu.cn/xzdm.aspx";
+        String res = HttpUtils.Get(Url, HttpUtils.Cookie);
+        UpdataViewState(res);
+        Map<String, String> map = new HashMap<>();
+        map.put("Host", "alst.jsahvc.edu.cn");
+        map.put("Connection", "keep-alive");
+        map.put("Content-Length", "349");
+        map.put("Cache-Control", "max-age=0");
+        map.put("Origin", "http://alst.jsahvc.edu.cn");
+        map.put("Upgrade-Insecure-Requests", "1");
+        map.put("User-Agent", "Mozilla/5.0(Windows NT 10.0;bWin64;x64)AppleWebKit/537.36 " +
+                "(KHTML, like Gecko)Chrome/58.0 .3029 .110 Safari / 537.36");
+        map.put("Content-Type", "application/x - www - form - urlencoded");
+        map.put("Accept", "text/html, application / xhtml + xml, application / xml;q = 0.9, " +
+                "image/webp,*/*;q=0.8");
+        map.put("Referer", "http://alst.jsahvc.edu.cn/xzdm.aspx");
+        map.put("Cookie", HttpUtils.Cookie);
+        String data = "__EVENTTARGET=&" +
+                "__EVENTARGUMENT=&" +
+                "__LASTFOCUS=&" +
+                "__VIEWSTATE=" + EncodeStr(_viewstate) + "&" +
+                "__VIEWSTATEGENERATOR=" + _viewStategenerator + "&" +
+                "mh=&tj=&pdm=&pmc=ssbd&pdm2=&pmc2=&" +
+                "pjxjdm=&pjxjdm2=&pval=&plx=&pkm=SSBDDM&pzd=sqrq&xzbz=0&ipbz=1&cwbz=&xz1v=";
+        ResponseData rs = HttpUtils.POST(Url, data, map, false);
+        Pattern p = Pattern.compile("onclick=\"xzst\\(&#39;(.*?)&#39;,&#39;(.*?)&#39;,&#39;0&#39;\\)");
+        Matcher m = p.matcher(rs.ResponseText);
+        List<String> list = new ArrayList<>();
+        while (m.find()) {
+            list.add(m.group(1) + "|" + m.group(2));
+        }
+        return list;
+    }
+
+
 }

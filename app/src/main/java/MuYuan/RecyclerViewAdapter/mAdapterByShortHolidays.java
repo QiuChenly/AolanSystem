@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.qiuchen.myapplication.R;
@@ -21,8 +20,8 @@ import java.util.Map;
  */
 
 public class mAdapterByShortHolidays extends RecyclerView.Adapter<mAdapterByShortHolidays.mHoldlerView> {
-    List<Map<String, String>> mList;
-    Context mContext;
+    private List<Map<String, String>> mList;
+    private Context mContext;
 
     public void setAdapterData(List<Map<String, String>> list, Context context) {
         mList = list;
@@ -32,8 +31,7 @@ public class mAdapterByShortHolidays extends RecyclerView.Adapter<mAdapterByShor
     //返回视图
     @Override
     public mHoldlerView onCreateViewHolder(ViewGroup parent, int viewType) {
-        mHoldlerView mHoldlerView = new mHoldlerView(LayoutInflater.from(mContext).inflate(R.layout.listviewadapteritem, parent, false));
-        return mHoldlerView;
+        return new mHoldlerView(LayoutInflater.from(mContext).inflate(R.layout.listviewadapteritem, parent, false));
     }
 
     //业务逻辑处理
@@ -79,7 +77,7 @@ public class mAdapterByShortHolidays extends RecyclerView.Adapter<mAdapterByShor
         TextView mItemAcceptState;//老师处理意见
         CardView mAdapterViewBackGround;
 
-        public mHoldlerView(View itemView) {
+        mHoldlerView(View itemView) {
             super(itemView);
             //绑定控件
             mItemIndex = (TextView) itemView.findViewById(R.id.mItemIndex);

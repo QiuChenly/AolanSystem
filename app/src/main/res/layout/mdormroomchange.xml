@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff6767"
+        android:orientation="vertical"
+        >
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="bottom"
+            android:elevation="10dp"
+            android:layout_margin="10dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/mDormRooms"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/m_editbox"
+                android:gravity="center"
+                android:inputType="number"
+                android:hint="宿舍编号"
+                android:text="" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/m_Spinner_ByDormRoomsChange"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="40dp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="bottom"
+            android:elevation="10dp"
+            android:layout_margin="10dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/mDormRoomsChangeTime"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/m_editbox"
+                android:gravity="center"
+                android:inputType="number"
+                android:hint="申请日期"
+                android:text="" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+</FrameLayout>

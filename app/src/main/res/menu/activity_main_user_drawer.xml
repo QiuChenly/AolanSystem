@@ -15,6 +15,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="节假日请假" />
         <item
+            android:id="@+id/mDormRooms"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="宿舍变动申请" />
+        <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="隐私保护设置" />
