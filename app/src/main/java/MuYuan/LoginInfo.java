@@ -17,13 +17,13 @@ public class LoginInfo {
     public static int ErrCode = 0;
     public static String Result;
     public static UserData mUserData = new UserData();
-    public static AolanOkHttpEx aolanEx = new AolanOkHttpEx();
+    public static Aolan aolanEx = new Aolan();
     public static Boolean IsRequestViews = false;
     public static Boolean IsLongRequestViews = false;
     public static ProgressDialog Dialog = null;
     public static Boolean IsInitChecked = false;
     public static Bitmap UserPic;
-
+    public static AolanStudentDromRooms mStudentDromRooms=new AolanStudentDromRooms();
     public static Bitmap BackGroundPic;
 
     /**

@@ -131,8 +131,6 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
         }
         mPersonName.setText(LoginInfo.mUserData.Name + "," + Leader);
         mPersonImage.setImageDrawable(getResources().getDrawable(R.mipmap.launcherico));
-        //LoginInfo.mUserData.y_qq="";
-        //TODO:测试代码,用完就删
         //判断是否已存在QQ号
         if (LoginInfo.mUserData.y_qq.length() > 0) {
             LoginInfo.mUserData.OICQ = LoginInfo.mUserData.y_qq;
@@ -157,7 +155,6 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
             LoginInfo.ErrCode = 0;
             LoginInfo.Result = "";
             LoginInfo.mUserData = new UserData();
-            LoginInfo.aolanEx = new AolanOkHttpEx();
             LoginInfo.IsRequestViews = false;
 
             SharedPreferences s = MainUser.this.getSharedPreferences("QiuChenSet", MODE_PRIVATE);
@@ -482,13 +479,6 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                                 //优化性能,加载过一次就不需要再次加载数据
                                                 if (LoginInfo.mUserData.CategoryHolidays.isEmpty()) {
                                                     LoginInfo.aolanEx.Init_Holidays_xzdm();
-                                                    while (LoginInfo.ErrCode == 0) {
-                                                        try {
-                                                            Thread.sleep(100);
-                                                        } catch (InterruptedException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
                                                 }
                                                 TempsHandle.sendEmptyMessage(0);
                                             } catch (IOException e) {
@@ -501,22 +491,11 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                             LoginInfo.Dialog.cancel();
                         }
                     };
-                    LoginInfo.aolanEx.getClassMatesInfo();
                     new Thread() {
                         @Override
                         public void run() {
-                            while (LoginInfo.ErrCode == 0) {
-                                try {
-                                    Thread.sleep(100);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            if (LoginInfo.ErrCode == 1) {
+                            LoginInfo.aolanEx.getClassMatesInfo();
                                 hand2.sendEmptyMessage(0);
-                            } else {
-                                Toast.makeText(MainUser.this, "网络超时啦!", Toast.LENGTH_SHORT).show();
-                            }
                         }
                     }.start();
                     break;
@@ -768,13 +747,6 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                         LoginInfo.aolanEx.Init_HolidaysLong(2);
                                     } catch (IOException e) {
                                         e.printStackTrace();
-                                    }
-                                    while (LoginInfo.ErrCode == 0) {
-                                        try {
-                                            Thread.sleep(100);
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        }
                                     }
                                 }
                                 Temp_HandUpdataView.sendEmptyMessage(0);
