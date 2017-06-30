@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,39 +10,67 @@
         android:id="@+id/mLoginBackGround"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#f46e00"
         android:scaleType="centerCrop" />
+
+    <!-- 下标栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom|center"
+        android:background="#ff0000"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="15dp"
+        android:layout_height="match_parent"
         android:gravity="center"
+        android:layout_gravity="center"
         android:background="@drawable/m_alphaback"
+        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:fitsSystemWindows="true"
+                app:cardCornerRadius="50dp">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@mipmap/login_top"
+                    android:scaleType="centerCrop" />
+            </android.support.v7.widget.CardView>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:gravity="bottom"
+                android:layout_margin="10dp"
                 android:elevation="10dp"
-                android:layout_margin="10dp">
+                android:gravity="bottom">
 
                 <AutoCompleteTextView
                     android:id="@+id/mUser"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@drawable/m_editbox"
-                    android:gravity="center"
-                    android:inputType="number"
                     android:hint="请输入账号"
+                    android:inputType="number"
                     android:text="" />
 
             </android.support.design.widget.TextInputLayout>
@@ -49,18 +78,16 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:gravity="bottom"
+                android:layout_margin="10dp"
                 android:elevation="10dp"
-                android:layout_margin="10dp">
+                android:gravity="bottom">
 
                 <AutoCompleteTextView
                     android:id="@+id/mPass"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@drawable/m_editbox"
-                    android:gravity="center"
-                    android:inputType="textPassword"
                     android:hint="请输入密码"
+                    android:inputType="textPassword"
                     android:text="" />
 
             </android.support.design.widget.TextInputLayout>
@@ -69,13 +96,14 @@
 
         <Button
             android:id="@+id/mLogin"
-            android:layout_width="200sp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5sp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/m_button"
-            android:text="登    录"
+            android:text="登 录"
+            android:textColor="#ffffff"
             android:textSize="18sp" />
 
         <ProgressBar
@@ -87,4 +115,23 @@
             android:layout_marginBottom="10dp"
             android:visibility="gone" />
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content">
+        <TextView android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:text=
+                "江苏农牧科技职业学院\n学生信息管理系统\n\nQiuChenly"
+            android:textColor="#d6000000"
+            android:textSize="15sp"
+            android:gravity="center|bottom"
+            />
+
+
+    </LinearLayout>
+
 </FrameLayout>

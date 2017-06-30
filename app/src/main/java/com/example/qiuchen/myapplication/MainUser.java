@@ -62,7 +62,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
     Toolbar toolbar = null;
     long BackTime = 0;
     SharedPreferences Share;
-    Boolean isUpdate=false;
+    Boolean isUpdate = false;
 
     public void initiation() {
         mPersonImage = (ImageView) findViewById(R.id.PersonPic);
@@ -103,7 +103,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
 
         Share = MainUser.this.getSharedPreferences("QiuChenSet", MODE_PRIVATE);
 
-        ImageView background=(ImageView) findViewById(R.id.mImageBackground);
+        ImageView background = (ImageView) findViewById(R.id.mImageBackground);
         background.setImageBitmap(LoginInfo.BackGroundPic);
     }
 
@@ -160,6 +160,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
             SharedPreferences s = MainUser.this.getSharedPreferences("QiuChenSet", MODE_PRIVATE);
             SharedPreferences.Editor e = s.edit();
             e.putString("pass", "");
+            e.putBoolean("isLogin", false);
             e.apply();
             Intent i = new Intent(MainUser.this, MainActivity.class);
             startActivity(i);
@@ -230,40 +231,32 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
             final FrameLayout linearLayout;
             switch (view) {
                 case 1:
-                    LoginInfo.Dialog.show();
                     i = (LinearLayout) inflater.inflate(R.layout.mfullinfo, null).findViewById(R.id.mFullInfo);
                     linearLayout = (FrameLayout) findViewById(R.id.mViews);
                     linearLayout.removeAllViews();
                     linearLayout.addView(i);
-                    //需要在View加入后组建创建完成再挂接事件,否则将会闪退
-                    final Handler Hand1 = new Handler() {
-                        @Override
-                        public void handleMessage(Message msg) {
-                            super.handleMessage(msg);
-                            TextView t = (TextView) findViewById(R.id.m_TextView_UserInfo);
-                            if (LoginInfo.ErrCode == -1) {
-                                t.setText("Error:网络超时...请检查手机网络是否畅通...");
-                            } else if (LoginInfo.ErrCode == 1) {
-                                String Leader;
-                                if (LoginInfo.mUserData.ClassLeader) {
-                                    Leader = "班级负责人";
-                                } else {
-                                    Leader = "班级群众";
-                                }
-                                t.setText(LoginInfo.mUserData.Name + "," + LoginInfo.mUserData.y_xbdm + "\n" + LoginInfo.mUserData.y_xdm + LoginInfo.mUserData.nd + "级学生\n学号:" + LoginInfo.mUserData
-                                        .y_xh + "\n" + LoginInfo.mUserData.ClassName + Leader + "\n" + "当前处于" + LoginInfo.mUserData.Term + "学期.\n政治面貌:" + LoginInfo.mUserData.y_zzmmdm + ",加入时间:" +
-                                        LoginInfo.mUserData.y_zzmmsj + "\n所在地区:" + LoginInfo.mUserData.y_syszddm + "\n高中毕业于" + LoginInfo.mUserData.y_byzx);
-                            }
-                            LoginInfo.Dialog.cancel();
-                        }
-                    };
-                    Hand1.sendEmptyMessage(0);
+                    TextView t = (TextView) findViewById(R.id.m_TextView_UserInfo);
+                    String Leader;
+                    if (LoginInfo.mUserData.ClassLeader) {
+                        Leader = "班级负责人";
+                    } else {
+                        Leader = "班级群众";
+                    }
+                    t.setText(LoginInfo.mUserData.Name + "," + LoginInfo.mUserData.y_xbdm +
+                            "\n" + LoginInfo.mUserData.y_xdm + LoginInfo.mUserData.nd +
+                            "级学生\n学号:" + LoginInfo.mUserData
+                            .y_xh + "\n" + LoginInfo.mUserData.ClassName + Leader + "\n" +
+                            "当前处于" + LoginInfo.mUserData.Term + "学期.\n政治面貌:" +
+                            LoginInfo.mUserData.y_zzmmdm + ",加入时间:" +
+                            LoginInfo.mUserData.y_zzmmsj + "\n所在地区:" +
+                            LoginInfo.mUserData.y_syszddm + "\n高中毕业于" +
+                            LoginInfo.mUserData.y_byzx);
                     break;
                 case 2:
                     LoginInfo.Dialog.show();
                     linearLayout = (FrameLayout) findViewById(R.id.mViews);
                     linearLayout.removeAllViews();
-                    isUpdate=false;
+                    isUpdate = false;
                     //移除所有控件,并准备加入新的控件
                     i = (LinearLayout) inflater.inflate(R.layout.mdaysview, null).findViewById(R.id.mDaysListViewLinearLayout);
                     linearLayout.addView(i);
@@ -276,12 +269,12 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                                 LoginInfo.mUserData.HolidaysEume = new ArrayList<>();
                             }
                             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.m_RecyclerList_ByShortHolidays);
-                            if(!isUpdate) {
+                            if (!isUpdate) {
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                                 recyclerView.addItemDecoration(new mItemDecoration());
                                 recyclerView.setHasFixedSize(false);
                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
-                                isUpdate=true;
+                                isUpdate = true;
                             }
                             mAdapterByShortHolidays madapterByShortHolidays = new mAdapterByShortHolidays();
                             madapterByShortHolidays.setAdapterData(LoginInfo.mUserData.HolidaysEume, getApplicationContext());
@@ -495,7 +488,7 @@ public class MainUser extends AppCompatActivity implements NavigationView.OnNavi
                         @Override
                         public void run() {
                             LoginInfo.aolanEx.getClassMatesInfo();
-                                hand2.sendEmptyMessage(0);
+                            hand2.sendEmptyMessage(0);
                         }
                     }.start();
                     break;

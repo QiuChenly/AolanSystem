@@ -71,11 +71,11 @@ public class httpClient {
      * @param RequestMethod  请求方法 0=GET 1=POST
      * @param RequestData    POST时请求的数据
      * @param RequestCookie  请求时附带的Cookie
-     * @param RequestHeader
-     * @param ConnectTimeout
-     * @param ReadTimeout
-     * @param ProxyIP
-     * @return
+     * @param RequestHeader  请求协议头 换行符分割
+     * @param ConnectTimeout 连接超时
+     * @param ReadTimeout 数据读取超时
+     * @param ProxyIP 代理地址IP
+     * @return 返回数据聚合
      */
     public static ResponseDataEx Request(String HttpUrl, int RequestMethod, String RequestData,
                                          String RequestCookie, String RequestHeader,
@@ -110,7 +110,7 @@ public class httpClient {
         //设置请求方式
         Url.setRequestMethod("GET");
         //设置连接超时
-        Url.setConnectTimeout((ConnectTimeout <= 0 ? 10000 : ConnectTimeout));
+        Url.setConnectTimeout(ConnectTimeout);
         //设置读取超时
         Url.setReadTimeout(ReadTimeout);
         //打开输入流,以便从服务器读取数据

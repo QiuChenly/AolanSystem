@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                                     SharedPreferences.Editor edit = Share.edit();
                                     edit.putString("user", mUser.getText().toString());
                                     edit.putString("pass", mPass.getText().toString());
+                                    edit.putBoolean("isLogin",true);
                                     edit.apply();
                                     Toast.makeText(MainActivity.this,
                                             "登录成功,欢迎你:" + LoginInfo.mUserData.Name + "!",
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                                         public void run() {
                                             LoginInfo.aolanEx.GetMyInfo();//获取个人信息
                                             LoginInfo.aolanEx.GetFullMyInfo();
-                                            //跳出循环,发送Handler消息通知UI更新
                                             Intent i = new Intent(MainActivity.this, MainUser.class);
                                             startActivity(i);
                                             finish();
@@ -115,49 +115,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (LoginInfo.BackGroundPic == null) {
-            new Thread() {
-                @Override
-                public void run() {
-                    mLoginBar.setVisibility(View.VISIBLE);
-                    btn.setVisibility(View.GONE);
-                    try {
-                        Bitmap mSave = httpClient.getBingImage();
-                        LoginInfo.BackGroundPic = httpClient.BitmapBlur(mSave,
-                                getApplicationContext(),25f);
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ImageView imageView =
-                                        (ImageView) findViewById(R.id.mLoginBackGround);
-                                imageView.setImageBitmap(LoginInfo.BackGroundPic);
-                                mLoginBar.setVisibility(View.GONE);
-                                btn.setVisibility(View.VISIBLE);
-                                if (mUser.getText().toString().length() > 0 &&
-                                        mPass.getText().toString().length() > 0) {
-                                    Toast.makeText(MainActivity.this,
-                                            "自动登录中...",
-                                            Toast.LENGTH_SHORT
-                                    ).show();
-                                    btn.callOnClick();
-                                }
-                            }
-                        });
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
-        } else {
-            ImageView imageView = (ImageView) findViewById(R.id.mLoginBackGround);
-            imageView.setImageBitmap(LoginInfo.BackGroundPic);
-            if (mUser.getText().toString().length() > 0 && mPass.getText().toString().length() > 0) {
-                Toast.makeText(MainActivity.this,
-                        "自动登录中...",
-                        Toast.LENGTH_SHORT
-                ).show();
-                btn.callOnClick();
-            }
+        ImageView imageView = (ImageView) findViewById(R.id.mLoginBackGround);
+        imageView.setImageBitmap(LoginInfo.BackGroundPic);
+        if (mUser.getText().toString().length() > 0 && mPass.getText().toString().length() > 0) {
+            Toast.makeText(MainActivity.this,
+                    "自动登录中...",
+                    Toast.LENGTH_SHORT
+            ).show();
+            btn.callOnClick();
         }
     }
 }

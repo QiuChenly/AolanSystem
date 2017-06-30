@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffaaa6"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.example.qiuchen.myapplication.WelcomePage">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="68dp"
+        android:layout_height="69dp"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="249dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="从服务器请求数据中..."
+        tools:layout_editor_absoluteY="318dp"
+        tools:layout_editor_absoluteX="163dp" />
+</LinearLayout>

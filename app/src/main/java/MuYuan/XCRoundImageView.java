@@ -81,7 +81,5 @@ public class XCRoundImageView extends android.support.v7.widget.AppCompatImageVi
         paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
         return output;
-
-
     }
 }
